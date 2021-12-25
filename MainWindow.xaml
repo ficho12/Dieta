@@ -5,8 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Dieta"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Dieta" Height="450" Width="800">
+
+
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="30" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch">
+            <Menu.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" VerticalAlignment="Top" />
+                </ItemsPanelTemplate>
+            </Menu.ItemsPanel>
+
+            <MenuItem Header="Tablas">
+                <MenuItem Header="Ver Tablas" Click="VerTablas_Click"/>
+                <MenuItem Header="Guardar Tablas" Click="GuardarTablas_Click"/>
+                <MenuItem Header="Guardar Tablas Como..." Click="GuardarTablasComo_Click"/>
+                <MenuItem Header="Cargar Tablas" Click="CargarTablas_Click"/>
+                <MenuItem Header="Eliminar Tablas" Click="EliminarTablas_Click"/>
+            </MenuItem>
+        </Menu>
+
+        <Button Content="Ver Todo" Grid.Row="1" Margin="100,2" Click="VerTodo_Click"/>
+        <Button Content="Gráfica" Grid.Row="2" Margin="50,10,50,0" Click="Button_Click" Height="349" VerticalAlignment="Top"/>
+
     </Grid>
+
 </Window>
