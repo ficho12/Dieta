@@ -88,15 +88,17 @@ namespace Dieta
             }
         }
 
-
-        private void CALORIAS_TextChanged(object sender, TextChangedEventArgs e)
+        private void EliminarFecha_Click(object sender, RoutedEventArgs e)
         {
-
+            listaDate.Remove((Fecha)(listaFecha.SelectedItem));
         }
 
-        private void dp_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        private void EliminarComida_Click(object sender, RoutedEventArgs e)
         {
-
+            Fecha fecha = (Fecha)(listaFecha.SelectedItem);
+            listaDate.Remove(fecha);
+            fecha.Comidas.Remove((Comida)(listaDia.SelectedItem));
+            listaDate.Add(fecha);
         }
     }
 }
