@@ -24,6 +24,7 @@ namespace Dieta
     public class Fecha 
     {
         public DateTime fecha { set; get; }
+        
 
         public double totalCalorias { set; get; }
 

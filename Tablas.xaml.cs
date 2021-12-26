@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +23,7 @@ namespace Dieta
     /// </summary>
     public partial class Tablas : Window
     {
+        
         ObservableCollection<Fecha> listaDate;
         public Tablas()
         {
@@ -31,8 +33,9 @@ namespace Dieta
         }
         private void CrearTabla_Click(object sender, RoutedEventArgs e)
         {
-            Fecha fecha = new Fecha(dp.DisplayDate.Date);
+            Fecha fecha = new Fecha((DateTime)dp.SelectedDate);
             listaDate.Add(fecha);
+            listaDia.ItemsSource = fecha.Comidas;
         }
 
         private void listaFecha_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -87,6 +90,11 @@ namespace Dieta
 
 
         private void CALORIAS_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void dp_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
