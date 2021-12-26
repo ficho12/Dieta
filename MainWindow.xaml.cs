@@ -4,15 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace Dieta
 {
@@ -78,9 +79,20 @@ namespace Dieta
             //if (DialogResult.OK == folderBrowserDialog1.ShowDialog())
             //{
             //string folderName = folderBrowserDialog1.SelectedPath;
+            StreamWriter writer;
 
-            var dialog = new System.Windows.Forms.FolderBrowserDialog();
-            System.Windows.Forms.DialogResult result = dialog.ShowDialog();
+            var dialog = new SaveFileDialog();
+            dialog.Filter = "cal files (*.cal)|*.cal|All files (*.*)|*.*";
+            dialog.FilterIndex = 2;
+            dialog.RestoreDirectory = true;
+
+            dialog.ShowDialog();
+
+            writer = new StreamWriter(dialog.FileName.ToString());
+
+            
+            writer.WriteLine("prueba");
+            writer.Close();
 
         }
 
