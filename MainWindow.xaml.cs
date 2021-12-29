@@ -14,14 +14,21 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace Dieta
 {
     /// <summary>
     /// Lógica de interacción para MainWindow.xaml
     /// </summary>
+
     public partial class MainWindow : Window
     {
+
+        Tablas tb;
+        ObservableCollection<Fecha> listaDate;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -30,9 +37,11 @@ namespace Dieta
 
         private void VerTablas_Click(object sender, RoutedEventArgs e)
         {
-            Tablas tablas = new Tablas();
-            tablas.Owner = this;
-            tablas.ShowDialog();
+            tb = new Tablas();
+            tb.Owner = this;
+            tb.Show();
+            tb.pasarTabla += pasarTabla;
+
             
             /*
             if (tablas.DialogResult == true)
@@ -42,32 +51,20 @@ namespace Dieta
             */
         }
 
+        private void pasarTabla(object sender, TablaEventArgs e)
+        {
+            listaDate = e.listaDate;
+            listaFecha.ItemsSource = listaDate;
+        }
+
         private void CargarTablas_Click(object sender, RoutedEventArgs e)
         {
-            Tablas tablas = new Tablas();
-            tablas.Owner = this;
-            tablas.ShowDialog();
-
-            /*
-            if (tablas.DialogResult == true)
-            {
-                Title = tablas.cadena;
-            }
-            */
+            
         }
 
         private void GuardarTablas_Click(object sender, RoutedEventArgs e)
         {
-            Tablas tablas = new Tablas();
-            tablas.Owner = this;
-            tablas.ShowDialog();
-
-            /*
-            if (tablas.DialogResult == true)
-            {
-                Title = tablas.cadena;
-            }
-            */
+            
         }
 
         private void GuardarTablasComo_Click(object sender, RoutedEventArgs e)
@@ -98,16 +95,7 @@ namespace Dieta
 
         private void EliminarTablas_Click(object sender, RoutedEventArgs e)
         {
-            Tablas tablas = new Tablas();
-            tablas.Owner = this;
-            tablas.ShowDialog();
-
-            /*
-            if (tablas.DialogResult == true)
-            {
-                Title = tablas.cadena;
-            }
-            */
+            
         }
 
         private void VerTodo_Click(object sender, RoutedEventArgs e)
@@ -120,7 +108,27 @@ namespace Dieta
 
         }
 
-        
+        public void GuardarListaTemp(string s)
+        {
+            Debug.WriteLine(s);
+
+            return;
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void listaFecha_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void listaFecha_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
   }
 

@@ -21,10 +21,28 @@ namespace Dieta
     /// <summary>
     /// Lógica de interacción para Page1.xaml
     /// </summary>
+    /// 
+
+    public class TablaEventArgs : EventArgs
+    {
+        public ObservableCollection<Fecha> listaDate {get; set; }
+
+        public TablaEventArgs(ObservableCollection<Fecha> e)
+        {
+            listaDate = new ObservableCollection<Fecha>(e);
+        }
+        
+
+    }
+
+    public delegate void TablaEventHandler(Object sender, TablaEventArgs e );
+
+
     public partial class Tablas : Window
     {
         
         ObservableCollection<Fecha> listaDate;
+        public event TablaEventHandler pasarTabla;
         public Tablas()
         {
             InitializeComponent();
@@ -59,9 +77,11 @@ namespace Dieta
 
 
             Comida comida = new Comida(COMIDA.Text,Convert.ToDouble(CALORIAS.Text));
-            
 
-
+            if (pasarTabla != null)
+            {
+                pasarTabla(this, new TablaEventArgs(listaDate));
+            }
 
             if (listaDate.Remove(fecha))
             {
@@ -78,16 +98,6 @@ namespace Dieta
 
         }
 
-        private void listaDia_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            Fecha fecha = (Fecha)(listaFecha.SelectedItem);
-
-            if (listaFecha.SelectedItem != null)
-            {
-                listaDia.ItemsSource = fecha.Comidas;
-            }
-        }
-
         private void EliminarFecha_Click(object sender, RoutedEventArgs e)
         {
             listaDate.Remove((Fecha)(listaFecha.SelectedItem));
@@ -100,5 +110,7 @@ namespace Dieta
             fecha.Comidas.Remove((Comida)(listaDia.SelectedItem));
             listaDate.Add(fecha);
         }
+
+        
     }
 }

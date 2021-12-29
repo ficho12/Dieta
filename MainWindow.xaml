@@ -36,8 +36,25 @@
         </Menu>
 
         <Button Content="Ver Todo" Grid.Row="1" Margin="100,2" Click="VerTodo_Click"/>
-        <Button Content="Gráfica" Grid.Row="2" Margin="50,10,50,0" Click="Button_Click" Height="349" VerticalAlignment="Top"/>
+        <Button Name="grafica" Content="Gráfica" Grid.Row="2" Margin="50,10,50,0" Click="Button_Click" Height="349" VerticalAlignment="Top"/>
+        
+        <ListView Name="listaFecha" Grid.Row="2" Grid.ColumnSpan="2" SelectionChanged="listaFecha_SelectionChanged_1"
+                  ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True" Margin="10,10,10,20">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="FECHA" DisplayMemberBinding="{Binding fecha}"></GridViewColumn>
+                    <GridViewColumn Header="TOTAL CALORÍAS" DisplayMemberBinding="{Binding totalCalorias}"></GridViewColumn>
+                </GridView>
+            </ListView.View>
 
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Eliminar" Click="MenuItem_Click"/>
+                </ContextMenu>
+            </ListView.ContextMenu>
+
+        </ListView>
+        
     </Grid>
 
 </Window>
