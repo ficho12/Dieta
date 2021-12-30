@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,7 +23,7 @@ namespace Dieta
     /// Lógica de interacción para Page1.xaml
     /// </summary>
     /// 
-
+    [Serializable]
     public class TablaEventArgs : EventArgs
     {
         public ObservableCollection<Fecha> listaDate {get; set; }
@@ -43,17 +44,42 @@ namespace Dieta
         
         ObservableCollection<Fecha> listaDate;
         public event TablaEventHandler pasarTabla;
+        String directorioTmp, archivoTmp, archivoActual;
+
         public Tablas()
         {
             InitializeComponent();
-            listaDate = new ObservableCollection<Fecha>();
-            listaFecha.ItemsSource = listaDate;
+
+
+            //listaDate = new ObservableCollection<Fecha>();
+            //listaFecha.ItemsSource = listaDate;
+
+            directorioTmp = Directory.GetCurrentDirectory() + "\\saves";
+
+            if (!Directory.Exists(directorioTmp))
+            {
+                Directory.CreateDirectory(directorioTmp);
+            }
+
+            archivoTmp = directorioTmp + "\\tmpData.bin";
+            archivoActual = archivoTmp;
+
+            if (File.Exists(archivoActual))
+            {
+                CargarArchivoTmp(archivoActual);
+            }
+            else
+            {
+                listaDate = new ObservableCollection<Fecha>();
+                listaFecha.ItemsSource = listaDate;
+            }
         }
         private void CrearTabla_Click(object sender, RoutedEventArgs e)
         {
             Fecha fecha = new Fecha((DateTime)dp.SelectedDate);
             listaDate.Add(fecha);
             listaDia.ItemsSource = fecha.Comidas;
+            GuardarArchivoTmp();
         }
 
         private void listaFecha_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -94,13 +120,14 @@ namespace Dieta
             {
                 //Error
             }
-            
 
+            GuardarArchivoTmp();
         }
 
         private void EliminarFecha_Click(object sender, RoutedEventArgs e)
         {
             listaDate.Remove((Fecha)(listaFecha.SelectedItem));
+            GuardarArchivoTmp();
         }
 
         private void EliminarComida_Click(object sender, RoutedEventArgs e)
@@ -109,8 +136,20 @@ namespace Dieta
             listaDate.Remove(fecha);
             fecha.Comidas.Remove((Comida)(listaDia.SelectedItem));
             listaDate.Add(fecha);
+            GuardarArchivoTmp();
         }
 
-        
+
+        private void GuardarArchivoTmp()
+        {
+            BinarySerialization.WriteToBinaryFile(archivoTmp, new List<Fecha>(listaDate));
+        }
+
+        private void CargarArchivoTmp(string s)
+        {
+            listaDate = new ObservableCollection<Fecha>(BinarySerialization.ReadFromBinaryFile<List<Fecha>>(s));
+            listaFecha.ItemsSource = listaDate;
+        }
+
     }
 }

@@ -28,12 +28,38 @@ namespace Dieta
 
         Tablas tb;
         ObservableCollection<Fecha> listaDate;
+        String directorioTmp, archivoTmp, archivoActual;
 
         public MainWindow()
         {
             InitializeComponent();
-        }
 
+
+
+            //listaDate = new ObservableCollection<Fecha>();
+            //listaFecha.ItemsSource = listaDate;
+
+            directorioTmp = Directory.GetCurrentDirectory() + "\\saves";
+
+            if (!Directory.Exists(directorioTmp))
+            {
+                Directory.CreateDirectory(directorioTmp);
+            }
+
+            archivoTmp = directorioTmp + "\\tmpData.bin";
+            archivoActual = archivoTmp;
+
+            if(File.Exists(archivoActual))
+            {
+                CargarArchivoTmp(archivoActual);
+            }
+            else
+            {
+                listaDate = new ObservableCollection<Fecha>();
+                listaFecha.ItemsSource = listaDate;
+            }
+
+        }
 
         private void VerTablas_Click(object sender, RoutedEventArgs e)
         {
@@ -59,12 +85,21 @@ namespace Dieta
 
         private void CargarTablas_Click(object sender, RoutedEventArgs e)
         {
-            
+            /*FileDialog dialog = new FileDialog();
+            dialog.Filter = "cal files (*.cal)|*.cal|All files (*.*)|*.*";
+            dialog.FilterIndex = 2;
+            dialog.RestoreDirectory = true;
+
+            dialog.ShowDialog();
+
+            archivoActual = dialog.FileName.ToString();
+            GuardarArchivo(archivoActual);
+            */
         }
 
         private void GuardarTablas_Click(object sender, RoutedEventArgs e)
         {
-            
+            GuardarArchivo(archivoActual);
         }
 
         private void GuardarTablasComo_Click(object sender, RoutedEventArgs e)
@@ -76,7 +111,7 @@ namespace Dieta
             //if (DialogResult.OK == folderBrowserDialog1.ShowDialog())
             //{
             //string folderName = folderBrowserDialog1.SelectedPath;
-            StreamWriter writer;
+            //StreamWriter writer;
 
             var dialog = new SaveFileDialog();
             dialog.Filter = "cal files (*.cal)|*.cal|All files (*.*)|*.*";
@@ -85,11 +120,14 @@ namespace Dieta
 
             dialog.ShowDialog();
 
-            writer = new StreamWriter(dialog.FileName.ToString());
+            archivoActual = dialog.FileName.ToString();
+            GuardarArchivo(archivoActual);
+
+           // writer = new StreamWriter(dialog.FileName.ToString());
 
             
-            writer.WriteLine("prueba");
-            writer.Close();
+           // writer.WriteLine("prueba");
+           // writer.Close();
 
         }
 
@@ -128,6 +166,17 @@ namespace Dieta
         private void listaFecha_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void GuardarArchivo(String s)
+        {
+            BinarySerialization.WriteToBinaryFile(s, new List<Fecha>(listaDate));
+        }
+
+        private void CargarArchivoTmp(string s)
+        {
+            listaDate = new ObservableCollection<Fecha>(BinarySerialization.ReadFromBinaryFile<List<Fecha>>(s));
+            listaFecha.ItemsSource = listaDate;
         }
     }
   }

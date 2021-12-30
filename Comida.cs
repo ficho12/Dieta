@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dieta
 {
-
+    [Serializable]
     public class Comida
     {
         public string comida { get; set; }
@@ -20,7 +20,8 @@ namespace Dieta
         }
 
     }
-    
+
+    [Serializable]
     public class Fecha 
     {
         public DateTime fecha { set; get; }
