@@ -43,6 +43,7 @@ namespace Dieta
     {
         
         ObservableCollection<Fecha> listaDate;
+        ObservableCollection<Comida> listaDay;
         public event TablaEventHandler pasarTabla;
         String directorioTmp, archivoTmp, archivoActual;
 
@@ -78,7 +79,8 @@ namespace Dieta
         {
             Fecha fecha = new Fecha((DateTime)dp.SelectedDate);
             listaDate.Add(fecha);
-            listaDia.ItemsSource = fecha.Comidas;
+            listaDay = new ObservableCollection<Comida>(fecha.Comidas);
+            listaDia.ItemsSource = listaDay;
             GuardarArchivoTmp();
         }
 
@@ -88,7 +90,8 @@ namespace Dieta
 
             if (listaFecha.SelectedItem != null)
             {
-                listaDia.ItemsSource = fecha.Comidas;
+                listaDay = new ObservableCollection<Comida>(fecha.Comidas);
+                listaDia.ItemsSource = listaDay;
             }
         }
 
@@ -112,9 +115,9 @@ namespace Dieta
             if (listaDate.Remove(fecha))
             {
                 fecha.Comidas.Add(comida);
+                listaDay.Add(comida);
                 listaDate.Add(fecha);
-                listaDia.ItemsSource = fecha.Comidas;
-
+                //listaDia.ItemsSource = fecha.Comidas;
             }
             else
             {
@@ -128,15 +131,21 @@ namespace Dieta
         {
             listaDate.Remove((Fecha)(listaFecha.SelectedItem));
             GuardarArchivoTmp();
+            listaFecha.ItemsSource = listaDate;
         }
 
         private void EliminarComida_Click(object sender, RoutedEventArgs e)
         {
             Fecha fecha = (Fecha)(listaFecha.SelectedItem);
-            listaDate.Remove(fecha);
-            fecha.Comidas.Remove((Comida)(listaDia.SelectedItem));
-            listaDate.Add(fecha);
-            GuardarArchivoTmp();
+            if(listaDate.Contains(fecha))
+            {
+                listaDate.Remove(fecha);
+                fecha.Comidas.Remove((Comida)(listaDia.SelectedItem));
+                listaDate.Add(fecha);
+                listaDay.Remove((Comida)(listaDia.SelectedItem));
+                //listaDia.ItemsSource = fecha.Comidas;
+                GuardarArchivoTmp();
+            }
         }
 
 
