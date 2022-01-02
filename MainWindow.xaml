@@ -10,16 +10,17 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="20" />
-            <RowDefinition Height="30" />
-            <RowDefinition />
+            <RowDefinition MinHeight="20" MaxHeight="20"/>
+            <RowDefinition MinHeight="30" MaxHeight="30"/>
+            <RowDefinition Height="Auto" MinHeight="345"/>
         </Grid.RowDefinitions>
 
-        <Menu Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch">
+        <Menu Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" Grid.ColumnSpan="2">
             <Menu.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" VerticalAlignment="Top" />
@@ -35,26 +36,104 @@
             </MenuItem>
         </Menu>
 
-        <Button Content="Ver Todo" Grid.Row="1" Margin="100,2" Click="VerTodo_Click"/>
-        <Button Name="grafica" Content="Gráfica" Grid.Row="2" Margin="50,10,50,0" Click="Button_Click" Height="349" VerticalAlignment="Top"/>
-        
-        <ListView Name="listaFecha" Grid.Row="2" Grid.ColumnSpan="2" SelectionChanged="listaFecha_SelectionChanged_1"
-                  ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True" Margin="10,10,10,20">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="FECHA" DisplayMemberBinding="{Binding fecha}"></GridViewColumn>
-                    <GridViewColumn Header="TOTAL CALORÍAS" DisplayMemberBinding="{Binding totalCalorias}"></GridViewColumn>
-                </GridView>
-            </ListView.View>
+        <Button Content="Ver Todo" Grid.Row="1" Margin="100,2" Click="VerTodo_Click" Grid.ColumnSpan="2"/>
 
-            <ListView.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="Eliminar" Click="MenuItem_Click"/>
-                </ContextMenu>
-            </ListView.ContextMenu>
+        <Viewbox x:Name="ViewBox" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
+            <Canvas x:Name="Canvas" Background="Beige" VerticalAlignment="Center" HorizontalAlignment="Center" Height="17" Width="37">
+                <Line x:Name="line1" Stroke="Blue" StrokeThickness="5" Fill="Blue" X1="10" X2="30" Canvas.Top="13" Canvas.Left="-6" Width="17">
+                    <Line.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleY="-1"/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="-90"/>
+                            <TranslateTransform X="12.727" Y="12.727"/>
+                        </TransformGroup>
+                    </Line.RenderTransform>
+                </Line>
+                <Line x:Name="line2" Stroke="Blue" StrokeThickness="5" Fill="Blue" X1="10" X2="30" Canvas.Top="13" Canvas.Left="-2" Width="22">
+                    <Line.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleY="-1"/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="-90"/>
+                            <TranslateTransform X="12.727" Y="12.727"/>
+                        </TransformGroup>
+                    </Line.RenderTransform>
+                </Line>
+                <Line x:Name="line3" Stroke="Blue" StrokeThickness="5" Fill="Blue" X1="10" X2="30" Canvas.Top="13" Canvas.Left="6" Width="22">
+                    <Line.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleY="-1"/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="-90"/>
+                            <TranslateTransform X="12.727" Y="12.727"/>
+                        </TransformGroup>
+                    </Line.RenderTransform>
+                </Line>
+                <Line x:Name="line4" Stroke="Blue" StrokeThickness="5" Fill="Blue" X1="10" X2="30" Canvas.Top="13" Width="18" Canvas.Left="2">
+                    <Line.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleY="-1"/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="-90"/>
+                            <TranslateTransform X="12.727" Y="12.727"/>
+                        </TransformGroup>
+                    </Line.RenderTransform>
+                </Line>
+                <Line x:Name="line5" Stroke="Blue" StrokeThickness="5" Fill="Blue" X1="10" X2="30" Canvas.Top="13" Canvas.Left="10" Width="22">
+                    <Line.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleY="-1"/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="-90"/>
+                            <TranslateTransform X="12.727" Y="12.727"/>
+                        </TransformGroup>
+                    </Line.RenderTransform>
+                </Line>
+                <Line x:Name="line6" Stroke="Blue" StrokeThickness="5" Fill="Blue" X1="10" X2="30" Canvas.Top="13" Canvas.Left="14" Width="22">
+                    <Line.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleY="-1"/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="-90"/>
+                            <TranslateTransform X="12.727" Y="12.727"/>
+                        </TransformGroup>
+                    </Line.RenderTransform>
+                </Line>
+                <Line x:Name="line7" Stroke="Blue" StrokeThickness="5" Fill="Blue" X1="10" X2="30" Canvas.Top="13" Canvas.Left="18" Width="22">
+                    <Line.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleY="-1"/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="-90"/>
+                            <TranslateTransform X="12.727" Y="12.727"/>
+                        </TransformGroup>
+                    </Line.RenderTransform>
+                </Line>
+                <Line x:Name="line8" Stroke="Blue" StrokeThickness="5" Fill="Blue" X1="10" X2="30" Canvas.Top="13" Canvas.Left="22" Width="22">
+                    <Line.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleY="-1"/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="-90"/>
+                            <TranslateTransform X="12.727" Y="12.727"/>
+                        </TransformGroup>
+                    </Line.RenderTransform>
+                </Line>
 
-        </ListView>
-        
+                <Label Name="NombreComida1" Content="Comida1" Foreground="Black" Height="12" Canvas.Left="-2" Width="15" Canvas.Top="11" FontSize="0.8" HorizontalContentAlignment="Center" />
+                <Label Name="NombreComida2" Content="Comida2" Foreground="Black" Height="12" Canvas.Left="2" Width="15" Canvas.Top="11" FontSize="0.8" HorizontalContentAlignment="Center" />
+                <Label Name="NombreComida3" Content="Comida3" Foreground="Black" Height="12" Canvas.Left="6" Width="15" Canvas.Top="11" FontSize="0.8" HorizontalContentAlignment="Center" />
+                <Label Name="NombreComida4" Content="Comida4" Foreground="Black" Height="12" Canvas.Left="10" Width="15" Canvas.Top="11" FontSize="0.8" HorizontalContentAlignment="Center" />
+                <Label Name="NombreComida5" Content="Comida5" Foreground="Black" Height="12" Canvas.Left="14" Width="15" Canvas.Top="11" FontSize="0.8" HorizontalContentAlignment="Center" />
+                <Label Name="NombreComida6" Content="Comida6" Foreground="Black" Height="12" Canvas.Left="18" Width="15" Canvas.Top="11" FontSize="0.8" HorizontalContentAlignment="Center" />
+                <Label Name="NombreComida7" Content="Comida7" Foreground="Black" Height="12" Canvas.Left="22" Width="15" Canvas.Top="11" FontSize="0.8" HorizontalContentAlignment="Center" />
+                <Label Name="NombreComida8" Content="Comida8" Foreground="Black" Height="12" Canvas.Left="26" Width="15" Canvas.Top="11" FontSize="0.8" HorizontalContentAlignment="Center" />
+
+            </Canvas>
+        </Viewbox>
+
+
     </Grid>
 
 </Window>

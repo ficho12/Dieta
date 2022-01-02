@@ -56,7 +56,6 @@ namespace Dieta
             else
             {
                 listaDate = new ObservableCollection<Fecha>();
-                listaFecha.ItemsSource = listaDate;
             }
 
         }
@@ -80,7 +79,28 @@ namespace Dieta
         private void pasarTabla(object sender, TablaEventArgs e)
         {
             listaDate = e.listaDate;
-            listaFecha.ItemsSource = listaDate;
+            List<Fecha> fecha = new List<Fecha>(listaDate.ToList());
+
+            NombreComida1.Content = fecha[0].Comidas[0].comida;
+
+            /*
+            foreach(Fecha x in fecha)
+            {
+                //foreach(Comida c in x.Comidas)
+                //{
+                //}
+                NombreComida1.Content = x.Comidas[0].comida;
+                //NombreComida2.Content = x.Comidas[1].comida;
+                //NombreComida3.Content = x.Comidas[2].comida;
+                //NombreComida4.Content = x.Comidas[3].comida;
+                //NombreComida5.Content = x.Comidas[4].comida;
+                //NombreComida6.Content = x.Comidas[5].comida;
+                //NombreComida7.Content = x.Comidas[6].comida;
+                //NombreComida8.Content = x.Comidas[7].comida;
+
+            }
+            */
+
         }
 
         private void CargarTablas_Click(object sender, RoutedEventArgs e)
@@ -176,7 +196,6 @@ namespace Dieta
         private void CargarArchivoTmp(string s)
         {
             listaDate = new ObservableCollection<Fecha>(BinarySerialization.ReadFromBinaryFile<List<Fecha>>(s));
-            listaFecha.ItemsSource = listaDate;
         }
     }
   }

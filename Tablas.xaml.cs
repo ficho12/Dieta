@@ -92,25 +92,22 @@ namespace Dieta
             {
                 listaDay = new ObservableCollection<Comida>(fecha.Comidas);
                 listaDia.ItemsSource = listaDay;
+
+                if (pasarTabla != null)
+                {
+                    pasarTabla(this, new TablaEventArgs(listaDate));
+                }
             }
         }
 
         private void AnadirComida_Click(object sender, RoutedEventArgs e)
         {
             Fecha fecha = (Fecha)(listaFecha.SelectedItem);
-            //Fecha fecha2 = fecha;
-            Debug.WriteLine("Comida:");
-            Debug.WriteLine(COMIDA.Text);
-            Debug.WriteLine(CALORIAS.Text);
-            Debug.WriteLine(Convert.ToDouble(CALORIAS.Text));
 
 
             Comida comida = new Comida(COMIDA.Text,Convert.ToDouble(CALORIAS.Text));
 
-            if (pasarTabla != null)
-            {
-                pasarTabla(this, new TablaEventArgs(listaDate));
-            }
+            
 
             if (listaDate.Remove(fecha))
             {
@@ -118,11 +115,19 @@ namespace Dieta
                 listaDay.Add(comida);
                 listaDate.Add(fecha);
                 //listaDia.ItemsSource = fecha.Comidas;
+
+                if (pasarTabla != null)
+                {
+                    pasarTabla(this, new TablaEventArgs(listaDate));
+                }
+
             }
             else
             {
                 //Error
             }
+
+            
 
             GuardarArchivoTmp();
         }
