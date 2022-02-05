@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Forms;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -16,6 +15,7 @@ using System.Windows.Shapes;
 using System.IO;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using Microsoft.Win32;
 
 namespace Dieta
 {
@@ -30,11 +30,9 @@ namespace Dieta
         ObservableCollection<Fecha> listaDate;
         String directorioTmp, archivoTmp, archivoActual;
 
-        public MainWindow()
+        public MainWindow()     // Añadir ventana que confirme que se ha cargado el último archivo temporal
         {
             InitializeComponent();
-
-
 
             //listaDate = new ObservableCollection<Fecha>();
             //listaFecha.ItemsSource = listaDate;
@@ -103,26 +101,36 @@ namespace Dieta
 
         }
 
-        private void CargarTablas_Click(object sender, RoutedEventArgs e)
+        private void CargarTablas_Click(object sender, RoutedEventArgs e)       // Añadir opcion cuando no se selecciona ninguna tabla
         {
-            /*FileDialog dialog = new FileDialog();
+            OpenFileDialog dialog = new OpenFileDialog();
+            //FileDialog dialog = new FileDialog();
             dialog.Filter = "cal files (*.cal)|*.cal|All files (*.*)|*.*";
             dialog.FilterIndex = 2;
             dialog.RestoreDirectory = true;
 
-            dialog.ShowDialog();
+            if ((bool)dialog.ShowDialog())
+            {
+                archivoActual = dialog.FileName.ToString();
+                CargarArchivoTmp(archivoActual);
+                //GuardarArchivo(archivoActual);
+                MostrarCuadro("Se ha cargado el archivo correctamente.", "Carga exitosa");
+            }
+            else
+            {
+                MostrarCuadro("No se ha podido cargar el archivo con el nombre especificado.", "Error al seleccionar archivo a cargar");
 
-            archivoActual = dialog.FileName.ToString();
-            GuardarArchivo(archivoActual);
-            */
+            }
+
+
         }
 
-        private void GuardarTablas_Click(object sender, RoutedEventArgs e)
+        private void GuardarTablas_Click(object sender, RoutedEventArgs e)      // Añadir ventana que confirme
         {
             GuardarArchivo(archivoActual);
         }
 
-        private void GuardarTablasComo_Click(object sender, RoutedEventArgs e)
+        private void GuardarTablasComo_Click(object sender, RoutedEventArgs e)      // Añadir opcion cuando no se selecciona ninguna tabla
         {
             //var folderBrowserDialog1 = new FolderBrowserDialog();
 
@@ -133,15 +141,25 @@ namespace Dieta
             //string folderName = folderBrowserDialog1.SelectedPath;
             //StreamWriter writer;
 
-            var dialog = new SaveFileDialog();
+            SaveFileDialog dialog = new SaveFileDialog();
+
+            //var dialog = new SaveFileDialog();
             dialog.Filter = "cal files (*.cal)|*.cal|All files (*.*)|*.*";
             dialog.FilterIndex = 2;
             dialog.RestoreDirectory = true;
 
-            dialog.ShowDialog();
+            if((bool)dialog.ShowDialog())
+            {
+                archivoActual = dialog.FileName.ToString();
+                GuardarArchivo(archivoActual);
+                MostrarCuadro("Se ha guardado el archivo correctamente.", "Guardado exitosa");
+            }
+            else
+            {
+                MostrarCuadro("No se ha podido guardar el archivo con el nombre especificado.", "Error al seleccionar archivo a guardar");
+            }
 
-            archivoActual = dialog.FileName.ToString();
-            GuardarArchivo(archivoActual);
+            
 
            // writer = new StreamWriter(dialog.FileName.ToString());
 
@@ -151,9 +169,9 @@ namespace Dieta
 
         }
 
-        private void EliminarTablas_Click(object sender, RoutedEventArgs e)
+        private void EliminarTablas_Click(object sender, RoutedEventArgs e)     // Añadir opcion cuando no se selecciona ninguna tabla
         {
-            
+
         }
 
         private void VerTodo_Click(object sender, RoutedEventArgs e)
@@ -196,6 +214,12 @@ namespace Dieta
         private void CargarArchivoTmp(string s)
         {
             listaDate = new ObservableCollection<Fecha>(BinarySerialization.ReadFromBinaryFile<List<Fecha>>(s));
+        }
+
+        private void MostrarCuadro(string msg, string titulo)
+        {
+            MessageBoxButton boton = MessageBoxButton.OK;
+            MessageBox.Show(msg, titulo, boton);
         }
     }
   }
