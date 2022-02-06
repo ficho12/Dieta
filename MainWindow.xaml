@@ -39,98 +39,193 @@
         <Button Content="Ver Todo" Grid.Row="1" Margin="100,2" Click="VerTodo_Click" Grid.ColumnSpan="2"/>
 
         <Viewbox x:Name="ViewBox" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
-            <Canvas x:Name="Canvas" Background="Beige" VerticalAlignment="Center" HorizontalAlignment="Center" Height="17" Width="37">
-                <Line x:Name="line1" Visibility="Visible" Stroke="Blue" StrokeThickness="5" Fill="Blue" X1="10" X2="30" Canvas.Top="13" Canvas.Left="-6" Width="17">
-                    <Line.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform ScaleY="-1"/>
-                            <SkewTransform/>
-                            <RotateTransform Angle="-90"/>
-                            <TranslateTransform X="12.727" Y="12.727"/>
-                        </TransformGroup>
-                    </Line.RenderTransform>
-                </Line>
-                <Line x:Name="line2" Visibility="Visible" Stroke="Blue" StrokeThickness="5" Fill="Blue" X1="10" X2="30" Canvas.Top="13" Canvas.Left="-2" Width="22">
-                    <Line.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform ScaleY="-1"/>
-                            <SkewTransform/>
-                            <RotateTransform Angle="-90"/>
-                            <TranslateTransform X="12.727" Y="12.727"/>
-                        </TransformGroup>
-                    </Line.RenderTransform>
-                </Line>
-                <Line x:Name="line3" Visibility="Visible" Stroke="Blue" StrokeThickness="5" Fill="Blue" X1="10" X2="30" Canvas.Top="13" Canvas.Left="6" Width="22">
-                    <Line.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform ScaleY="-1"/>
-                            <SkewTransform/>
-                            <RotateTransform Angle="-90"/>
-                            <TranslateTransform X="12.727" Y="12.727"/>
-                        </TransformGroup>
-                    </Line.RenderTransform>
-                </Line>
-                <Line x:Name="line4" Visibility="Visible" Stroke="Blue" StrokeThickness="5" Fill="Blue" X1="10" X2="30" Canvas.Top="13" Width="18" Canvas.Left="2">
-                    <Line.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform ScaleY="-1"/>
-                            <SkewTransform/>
-                            <RotateTransform Angle="-90"/>
-                            <TranslateTransform X="12.727" Y="12.727"/>
-                        </TransformGroup>
-                    </Line.RenderTransform>
-                </Line>
-                <Line x:Name="line5" Visibility="Visible" Stroke="Blue" StrokeThickness="5" Fill="Blue" X1="10" X2="30" Canvas.Top="13" Canvas.Left="10" Width="22">
-                    <Line.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform ScaleY="-1"/>
-                            <SkewTransform/>
-                            <RotateTransform Angle="-90"/>
-                            <TranslateTransform X="12.727" Y="12.727"/>
-                        </TransformGroup>
-                    </Line.RenderTransform>
-                </Line>
-                <Line x:Name="line6" Visibility="Visible" Stroke="Blue" StrokeThickness="5" Fill="Blue" X1="10" X2="30" Canvas.Top="13" Canvas.Left="14" Width="22">
-                    <Line.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform ScaleY="-1"/>
-                            <SkewTransform/>
-                            <RotateTransform Angle="-90"/>
-                            <TranslateTransform X="12.727" Y="12.727"/>
-                        </TransformGroup>
-                    </Line.RenderTransform>
-                </Line>
-                <Line x:Name="line7" Visibility="Visible" Stroke="Blue" StrokeThickness="5" Fill="Blue" X1="10" X2="30" Canvas.Top="13" Canvas.Left="18" Width="22">
-                    <Line.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform ScaleY="-1"/>
-                            <SkewTransform/>
-                            <RotateTransform Angle="-90"/>
-                            <TranslateTransform X="12.727" Y="12.727"/>
-                        </TransformGroup>
-                    </Line.RenderTransform>
-                </Line>
-                <Line x:Name="line8" Visibility="Visible" Stroke="Blue" StrokeThickness="5" Fill="Blue" X1="10" X2="30" Canvas.Top="13" Canvas.Left="22" Width="22">
-                    <Line.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform ScaleY="-1"/>
-                            <SkewTransform/>
-                            <RotateTransform Angle="-90"/>
-                            <TranslateTransform X="12.727" Y="12.727"/>
-                        </TransformGroup>
-                    </Line.RenderTransform>
-                </Line>
+            <Grid>
+                <Canvas x:Name="CanvasComida" Visibility="Visible" Background="Beige" VerticalAlignment="Center" HorizontalAlignment="Center" Height="17" Width="37">
+                    <Line x:Name="line1" Visibility="Visible" Stroke="Blue" StrokeThickness="5" Fill="Blue" X1="10" X2="30" Canvas.Top="13" Canvas.Left="-6" Width="17">
+                        <Line.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleY="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-90"/>
+                                <TranslateTransform X="12.727" Y="12.727"/>
+                            </TransformGroup>
+                        </Line.RenderTransform>
+                    </Line>
+                    <Line x:Name="line2" Visibility="Visible" Stroke="Blue" StrokeThickness="5" Fill="Blue" X1="10" X2="30" Canvas.Top="13" Canvas.Left="-2" Width="22">
+                        <Line.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleY="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-90"/>
+                                <TranslateTransform X="12.727" Y="12.727"/>
+                            </TransformGroup>
+                        </Line.RenderTransform>
+                    </Line>
+                    <Line x:Name="line3" Visibility="Visible" Stroke="Blue" StrokeThickness="5" Fill="Blue" X1="10" X2="30" Canvas.Top="13" Canvas.Left="6" Width="22">
+                        <Line.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleY="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-90"/>
+                                <TranslateTransform X="12.727" Y="12.727"/>
+                            </TransformGroup>
+                        </Line.RenderTransform>
+                    </Line>
+                    <Line x:Name="line4" Visibility="Visible" Stroke="Blue" StrokeThickness="5" Fill="Blue" X1="10" X2="30" Canvas.Top="13" Width="18" Canvas.Left="2">
+                        <Line.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleY="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-90"/>
+                                <TranslateTransform X="12.727" Y="12.727"/>
+                            </TransformGroup>
+                        </Line.RenderTransform>
+                    </Line>
+                    <Line x:Name="line5" Visibility="Visible" Stroke="Blue" StrokeThickness="5" Fill="Blue" X1="10" X2="30" Canvas.Top="13" Canvas.Left="10" Width="22">
+                        <Line.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleY="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-90"/>
+                                <TranslateTransform X="12.727" Y="12.727"/>
+                            </TransformGroup>
+                        </Line.RenderTransform>
+                    </Line>
+                    <Line x:Name="line6" Visibility="Visible" Stroke="Blue" StrokeThickness="5" Fill="Blue" X1="10" X2="30" Canvas.Top="13" Canvas.Left="14" Width="22">
+                        <Line.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleY="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-90"/>
+                                <TranslateTransform X="12.727" Y="12.727"/>
+                            </TransformGroup>
+                        </Line.RenderTransform>
+                    </Line>
+                    <Line x:Name="line7" Visibility="Visible" Stroke="Blue" StrokeThickness="5" Fill="Blue" X1="10" X2="30" Canvas.Top="13" Canvas.Left="18" Width="22">
+                        <Line.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleY="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-90"/>
+                                <TranslateTransform X="12.727" Y="12.727"/>
+                            </TransformGroup>
+                        </Line.RenderTransform>
+                    </Line>
+                    <Line x:Name="line8" Visibility="Visible" Stroke="Blue" StrokeThickness="5" Fill="Blue" X1="10" X2="30" Canvas.Top="13" Canvas.Left="22" Width="22">
+                        <Line.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleY="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-90"/>
+                                <TranslateTransform X="12.727" Y="12.727"/>
+                            </TransformGroup>
+                        </Line.RenderTransform>
+                    </Line>
 
-                <Label Name="NombreComida1" Visibility="Visible" Content="Comida1" Foreground="Black" Height="12" Canvas.Left="-2" Width="15" Canvas.Top="11" FontSize="0.8" HorizontalContentAlignment="Center" />
-                <Label Name="NombreComida2" Visibility="Visible" Content="Comida2" Foreground="Black" Height="12" Canvas.Left="2" Width="15" Canvas.Top="11" FontSize="0.8" HorizontalContentAlignment="Center" />
-                <Label Name="NombreComida3" Visibility="Visible" Content="Comida3" Foreground="Black" Height="12" Canvas.Left="6" Width="15" Canvas.Top="11" FontSize="0.8" HorizontalContentAlignment="Center" />
-                <Label Name="NombreComida4" Visibility="Visible" Content="Comida4" Foreground="Black" Height="12" Canvas.Left="10" Width="15" Canvas.Top="11" FontSize="0.8" HorizontalContentAlignment="Center" />
-                <Label Name="NombreComida5" Visibility="Visible" Content="Comida5" Foreground="Black" Height="12" Canvas.Left="14" Width="15" Canvas.Top="11" FontSize="0.8" HorizontalContentAlignment="Center" />
-                <Label Name="NombreComida6" Visibility="Visible" Content="Comida6" Foreground="Black" Height="12" Canvas.Left="18" Width="15" Canvas.Top="11" FontSize="0.8" HorizontalContentAlignment="Center" />
-                <Label Name="NombreComida7" Visibility="Visible" Content="Comida7" Foreground="Black" Height="12" Canvas.Left="22" Width="15" Canvas.Top="11" FontSize="0.8" HorizontalContentAlignment="Center" />
-                <Label Name="NombreComida8" Visibility="Visible" Content="Comida8" Foreground="Black" Height="12" Canvas.Left="26" Width="15" Canvas.Top="11" FontSize="0.8" HorizontalContentAlignment="Center" />
+                    <Label Name="NombreComida1" Visibility="Visible" Content="Comida1" Foreground="Black" Height="12" Canvas.Left="-2" Width="15" Canvas.Top="11" FontSize="0.8" HorizontalContentAlignment="Center" />
+                    <Label Name="NombreComida2" Visibility="Visible" Content="Comida2" Foreground="Black" Height="12" Canvas.Left="2" Width="15" Canvas.Top="11" FontSize="0.8" HorizontalContentAlignment="Center" />
+                    <Label Name="NombreComida3" Visibility="Visible" Content="Comida3" Foreground="Black" Height="12" Canvas.Left="6" Width="15" Canvas.Top="11" FontSize="0.8" HorizontalContentAlignment="Center" />
+                    <Label Name="NombreComida4" Visibility="Visible" Content="Comida4" Foreground="Black" Height="12" Canvas.Left="10" Width="15" Canvas.Top="11" FontSize="0.8" HorizontalContentAlignment="Center" />
+                    <Label Name="NombreComida5" Visibility="Visible" Content="Comida5" Foreground="Black" Height="12" Canvas.Left="14" Width="15" Canvas.Top="11" FontSize="0.8" HorizontalContentAlignment="Center" />
+                    <Label Name="NombreComida6" Visibility="Visible" Content="Comida6" Foreground="Black" Height="12" Canvas.Left="18" Width="15" Canvas.Top="11" FontSize="0.8" HorizontalContentAlignment="Center" />
+                    <Label Name="NombreComida7" Visibility="Visible" Content="Comida7" Foreground="Black" Height="12" Canvas.Left="22" Width="15" Canvas.Top="11" FontSize="0.8" HorizontalContentAlignment="Center" />
+                    <Label Name="NombreComida8" Visibility="Visible" Content="Comida8" Foreground="Black" Height="12" Canvas.Left="26" Width="15" Canvas.Top="11" FontSize="0.8" HorizontalContentAlignment="Center" />
 
-            </Canvas>
+                </Canvas>
+
+                <Canvas x:Name="CanvasDias" Visibility="Hidden" Background="Beige" VerticalAlignment="Center" HorizontalAlignment="Center" Height="17" Width="37">
+                    <Line x:Name="lineDia1" Visibility="Visible" Stroke="Blue" StrokeThickness="5" Fill="Blue" X1="10" X2="30" Canvas.Top="13" Canvas.Left="-6" Width="17">
+                        <Line.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleY="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-90"/>
+                                <TranslateTransform X="12.727" Y="12.727"/>
+                            </TransformGroup>
+                        </Line.RenderTransform>
+                    </Line>
+                    <Line x:Name="lineDia2" Visibility="Visible" Stroke="Blue" StrokeThickness="5" Fill="Blue" X1="10" X2="30" Canvas.Top="13" Canvas.Left="-2" Width="22">
+                        <Line.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleY="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-90"/>
+                                <TranslateTransform X="12.727" Y="12.727"/>
+                            </TransformGroup>
+                        </Line.RenderTransform>
+                    </Line>
+                    <Line x:Name="lineDia3" Visibility="Visible" Stroke="Blue" StrokeThickness="5" Fill="Blue" X1="10" X2="30" Canvas.Top="13" Canvas.Left="6" Width="22">
+                        <Line.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleY="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-90"/>
+                                <TranslateTransform X="12.727" Y="12.727"/>
+                            </TransformGroup>
+                        </Line.RenderTransform>
+                    </Line>
+                    <Line x:Name="lineDia4" Visibility="Visible" Stroke="Blue" StrokeThickness="5" Fill="Blue" X1="10" X2="30" Canvas.Top="13" Width="18" Canvas.Left="2">
+                        <Line.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleY="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-90"/>
+                                <TranslateTransform X="12.727" Y="12.727"/>
+                            </TransformGroup>
+                        </Line.RenderTransform>
+                    </Line>
+                    <Line x:Name="lineDia5" Visibility="Visible" Stroke="Blue" StrokeThickness="5" Fill="Blue" X1="10" X2="30" Canvas.Top="13" Canvas.Left="10" Width="22">
+                        <Line.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleY="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-90"/>
+                                <TranslateTransform X="12.727" Y="12.727"/>
+                            </TransformGroup>
+                        </Line.RenderTransform>
+                    </Line>
+                    <Line x:Name="lineDia6" Visibility="Visible" Stroke="Blue" StrokeThickness="5" Fill="Blue" X1="10" X2="30" Canvas.Top="13" Canvas.Left="14" Width="22">
+                        <Line.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleY="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-90"/>
+                                <TranslateTransform X="12.727" Y="12.727"/>
+                            </TransformGroup>
+                        </Line.RenderTransform>
+                    </Line>
+                    <Line x:Name="lineDia7" Visibility="Visible" Stroke="Blue" StrokeThickness="5" Fill="Blue" X1="10" X2="30" Canvas.Top="13" Canvas.Left="18" Width="22">
+                        <Line.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleY="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-90"/>
+                                <TranslateTransform X="12.727" Y="12.727"/>
+                            </TransformGroup>
+                        </Line.RenderTransform>
+                    </Line>
+                    <Line x:Name="lineDia8" Visibility="Visible" Stroke="Blue" StrokeThickness="5" Fill="Blue" X1="10" X2="30" Canvas.Top="13" Canvas.Left="22" Width="22">
+                        <Line.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleY="-1"/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-90"/>
+                                <TranslateTransform X="12.727" Y="12.727"/>
+                            </TransformGroup>
+                        </Line.RenderTransform>
+                    </Line>
+
+                    <Label Name="Dia1" Visibility="Visible" Content="Dia1" Foreground="Black" Height="12" Canvas.Left="-2" Width="15" Canvas.Top="11" FontSize="0.8" HorizontalContentAlignment="Center" />
+                    <Label Name="Dia2" Visibility="Visible" Content="Dia2" Foreground="Black" Height="12" Canvas.Left="2" Width="15" Canvas.Top="11" FontSize="0.8" HorizontalContentAlignment="Center" />
+                    <Label Name="Dia3" Visibility="Visible" Content="Dia3" Foreground="Black" Height="12" Canvas.Left="6" Width="15" Canvas.Top="11" FontSize="0.8" HorizontalContentAlignment="Center" />
+                    <Label Name="Dia4" Visibility="Visible" Content="Dia4" Foreground="Black" Height="12" Canvas.Left="10" Width="15" Canvas.Top="11" FontSize="0.8" HorizontalContentAlignment="Center" />
+                    <Label Name="Dia5" Visibility="Visible" Content="Dia5" Foreground="Black" Height="12" Canvas.Left="14" Width="15" Canvas.Top="11" FontSize="0.8" HorizontalContentAlignment="Center" />
+                    <Label Name="Dia6" Visibility="Visible" Content="Dia6" Foreground="Black" Height="12" Canvas.Left="18" Width="15" Canvas.Top="11" FontSize="0.8" HorizontalContentAlignment="Center" />
+                    <Label Name="Dia7" Visibility="Visible" Content="Dia7" Foreground="Black" Height="12" Canvas.Left="22" Width="15" Canvas.Top="11" FontSize="0.8" HorizontalContentAlignment="Center" />
+                    <Label Name="Dia8" Visibility="Visible" Content="Dia8" Foreground="Black" Height="12" Canvas.Left="26" Width="15" Canvas.Top="11" FontSize="0.8" HorizontalContentAlignment="Center" />
+
+                </Canvas>
+            </Grid>
         </Viewbox>
 
 
