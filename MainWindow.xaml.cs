@@ -29,6 +29,7 @@ namespace Dieta
         Tablas tb;
         ObservableCollection<Fecha> listaDate;
         String directorioTmp, archivoTmp, archivoActual;
+        int pos;
 
         public MainWindow()     // Añadir ventana que confirme que se ha cargado el último archivo temporal
         {
@@ -74,12 +75,13 @@ namespace Dieta
             */
         }
 
-        private void pasarTabla(object sender, TablaEventArgs e)
+        private void pasarTabla(object sender, TablaEventArgs e) //Meter indice al pasar la fecha hacer porcentajes y modificar el tamaño de las lineas
         {
+            pos = e.pos;
             listaDate = e.listaDate;
             List<Fecha> fecha = new List<Fecha>(listaDate.ToList());
 
-            int numComidas = fecha[0].Comidas.Count();
+            int numComidas = fecha[pos].Comidas.Count();
 
             for (int i = 0; i < 8; i++)
             {
@@ -97,7 +99,7 @@ namespace Dieta
                 else
                 {
                     //NombreComida1.Content = fecha[0].Comidas[0].comida;
-                    nombreComida.Content = fecha[0].Comidas[i].comida;
+                    nombreComida.Content = fecha[pos].Comidas[i].comida;
                     //line.Content = fecha[i].Comidas[i].comida;
                 }
             }

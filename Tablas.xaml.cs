@@ -27,13 +27,13 @@ namespace Dieta
     public class TablaEventArgs : EventArgs
     {
         public ObservableCollection<Fecha> listaDate {get; set; }
+        public int pos { get; set; }
 
-        public TablaEventArgs(ObservableCollection<Fecha> e)
+        public TablaEventArgs(ObservableCollection<Fecha> e, int p)
         {
             listaDate = new ObservableCollection<Fecha>(e);
+            pos = p;
         }
-        
-
     }
 
     public delegate void TablaEventHandler(Object sender, TablaEventArgs e );
@@ -95,7 +95,7 @@ namespace Dieta
 
                 if (pasarTabla != null)
                 {
-                    pasarTabla(this, new TablaEventArgs(listaDate));
+                    pasarTabla(this, new TablaEventArgs(listaDate, listaFecha.SelectedIndex));
                 }
             }
         }
@@ -118,7 +118,7 @@ namespace Dieta
 
                 if (pasarTabla != null)
                 {
-                    pasarTabla(this, new TablaEventArgs(listaDate));
+                    pasarTabla(this, new TablaEventArgs(listaDate, listaFecha.SelectedIndex));
                 }
 
             }
