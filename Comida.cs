@@ -18,7 +18,6 @@ namespace Dieta
             this.comida = comida;
             this.calorias = calorias;
         }
-
     }
 
     [Serializable]
@@ -26,7 +25,6 @@ namespace Dieta
     {
         public DateTime fecha { set; get; }
         
-
         public double totalCalorias { set; get; }
 
         public List<Comida> Comidas { set; get; }

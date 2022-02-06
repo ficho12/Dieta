@@ -79,7 +79,58 @@ namespace Dieta
             listaDate = e.listaDate;
             List<Fecha> fecha = new List<Fecha>(listaDate.ToList());
 
+
+            //Label nombreComida;
+
+            /*
             NombreComida1.Content = fecha[0].Comidas[0].comida;
+            NombreComida2.Visibility = Visibility.Hidden;
+            NombreComida3.Visibility = Visibility.Hidden;
+            NombreComida4.Visibility = Visibility.Hidden;
+            NombreComida5.Visibility = Visibility.Hidden;
+            NombreComida6.Visibility = Visibility.Hidden;
+            NombreComida7.Visibility = Visibility.Hidden;
+            NombreComida8.Visibility = Visibility.Hidden;
+            */
+            int numComidas = fecha[0].Comidas.Count();
+
+            for (int i = 0; i < 8; i++)
+            {
+                var nC = string.Format("NombreComida{0}", i+1);
+                var nombreComida = (Label)this.FindName(nC);
+
+                var l = string.Format("line{0}", i+1);
+                var line = (Line)this.FindName(l);
+
+                if (i>=numComidas)
+                {
+                    nombreComida.Visibility = Visibility.Hidden;
+                    line.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    //NombreComida1.Content = fecha[0].Comidas[0].comida;
+                    nombreComida.Content = fecha[0].Comidas[i].comida;
+                    //line.Content = fecha[i].Comidas[i].comida;
+                }
+
+
+                //label.Content = i * 10;
+            }
+
+            /*
+            for (int i=0; i<8; i++)
+            {
+                nombreComida = 
+                switch (i)
+                {
+                    case 0:
+                        break;
+
+                }
+            }
+            */
+
 
             /*
             foreach(Fecha x in fecha)
@@ -95,10 +146,8 @@ namespace Dieta
                 //NombreComida6.Content = x.Comidas[5].comida;
                 //NombreComida7.Content = x.Comidas[6].comida;
                 //NombreComida8.Content = x.Comidas[7].comida;
-
             }
             */
-
         }
 
         private void CargarTablas_Click(object sender, RoutedEventArgs e)       // Añadir opcion cuando no se selecciona ninguna tabla
