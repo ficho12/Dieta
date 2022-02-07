@@ -30,6 +30,7 @@ namespace Dieta
         ObservableCollection<Fecha> listaDate;
         String directorioTmp, archivoTmp, archivoActual;
         int pos;
+        bool cambioGrafica;
 
         public MainWindow()     // Añadir ventana que confirme que se ha cargado el último archivo temporal
         {
@@ -65,6 +66,7 @@ namespace Dieta
             tb.Owner = this;
             tb.Show();
             tb.pasarTabla += pasarTabla;
+            tb.cambiarGrafica += cambiarGrafica;
 
             
             /*
@@ -73,6 +75,20 @@ namespace Dieta
                 Title = tablas.cadena;
             }
             */
+        }
+
+        private void cambiarGrafica(object sender, CambiarGraficaEventArgs e)
+        {
+            if (e.cambioGrafica == true)
+            {
+                var canvas = (Canvas)this.FindName("CanvasDias");
+                canvas.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                var canvas = (Canvas)this.FindName("CanvasDias");
+                canvas.Visibility = Visibility.Hidden;
+            }
         }
 
         private void pasarTabla(object sender, TablaEventArgs e) //Meter indice al pasar la fecha hacer porcentajes y modificar el tamaño de las lineas

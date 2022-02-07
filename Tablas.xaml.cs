@@ -38,6 +38,19 @@ namespace Dieta
 
     public delegate void TablaEventHandler(Object sender, TablaEventArgs e );
 
+    [Serializable]
+    public class CambiarGraficaEventArgs : EventArgs
+    {
+        public bool cambioGrafica { get; set; }         //True = grafica Dias, False = Gráfica Comida
+
+        public CambiarGraficaEventArgs(bool c)
+        {
+            cambioGrafica = c;
+        }
+    }
+
+    public delegate void CambiarGraficaEventHandler(Object sender, CambiarGraficaEventArgs e);
+
 
     public partial class Tablas : Window
     {
@@ -45,6 +58,8 @@ namespace Dieta
         ObservableCollection<Fecha> listaDate;
         ObservableCollection<Comida> listaDay;
         public event TablaEventHandler pasarTabla;
+        public event CambiarGraficaEventHandler cambiarGrafica;
+
         String directorioTmp, archivoTmp, archivoActual;
 
         public Tablas()
@@ -73,6 +88,11 @@ namespace Dieta
             {
                 listaDate = new ObservableCollection<Fecha>();
                 listaFecha.ItemsSource = listaDate;
+            }
+
+            if(cambiarGrafica != null)
+            {
+                cambiarGrafica(this, new CambiarGraficaEventArgs(true));
             }
         }
         private void CrearTabla_Click(object sender, RoutedEventArgs e)
