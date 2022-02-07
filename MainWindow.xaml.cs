@@ -77,11 +77,15 @@ namespace Dieta
 
         private void pasarTabla(object sender, TablaEventArgs e) //Meter indice al pasar la fecha hacer porcentajes y modificar el tamaño de las lineas
         {
+            double[] calorias;
+            calorias = new double[7];
+            double caloriasMax, division, resto;
             pos = e.pos;
             listaDate = e.listaDate;
             List<Fecha> fecha = new List<Fecha>(listaDate.ToList());
 
             int numComidas = fecha[pos].Comidas.Count();
+            int numFechas = pos - fecha.Count();
 
             for (int i = 0; i < 8; i++)
             {
@@ -101,7 +105,49 @@ namespace Dieta
                     //NombreComida1.Content = fecha[0].Comidas[0].comida;
                     nombreComida.Content = fecha[pos].Comidas[i].comida;
                     //line.Content = fecha[i].Comidas[i].comida;
+                    calorias[i] = fecha[pos].Comidas[i].calorias;
                 }
+
+                var d = string.Format("Dia{0}", i + 1);
+                var dia = (Label)this.FindName(d);
+
+                var lD = string.Format("lineDia{0}", i + 1);
+                var lineDia = (Line)this.FindName(lD);
+
+                if (i >= numFechas)
+                {
+                    dia.Visibility = Visibility.Hidden;
+                    lineDia.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    //NombreComida1.Content = fecha[0].Comidas[0].comida;
+                    dia.Content = fecha[pos + i].fecha.ToString();
+                    //line.Content = fecha[i].Comidas[i].comida;
+                    //calorias[i] = fecha[pos].Comidas[i].calorias;
+                }
+            }
+
+            caloriasMax = calorias.Max();
+            division = caloriasMax % 8;
+            resto = caloriasMax;
+
+            for(int i=0; i <8; i++)
+            {
+                if (i < numComidas)
+                {
+                    var l = string.Format("line{0}", i + 1);
+                    var line = (Line)this.FindName(l);
+
+                    line.Width = calorias[i]/caloriasMax * 23;
+                }
+
+                var numC = string.Format("NumCal{0}", 8 - i);
+                var numCal = (Label)this.FindName(numC);
+
+                numCal.Content = resto;
+                resto -= division;
+
             }
         }
 
