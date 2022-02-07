@@ -95,7 +95,7 @@ namespace Dieta
 
                 if (pasarTabla != null)
                 {
-                    pasarTabla(this, new TablaEventArgs(listaDate, listaDate.IndexOf(fecha)));
+                    pasarTabla(this, new TablaEventArgs(listaDate, listaDate.IndexOf(fecha)));      //Problema Pos
                 }
             }
         }

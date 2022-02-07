@@ -84,8 +84,13 @@ namespace Dieta
             listaDate = e.listaDate;
             List<Fecha> fecha = new List<Fecha>(listaDate.ToList());
 
-            int numComidas = fecha[pos].Comidas.Count();
-            int numFechas = pos - fecha.Count();
+            int numComidas = fecha[pos].Comidas.Count<Comida>();
+            int numFechas = fecha.Count() - pos;
+
+            Debug.WriteLine("Pos: " + pos.ToString());
+            Debug.WriteLine("NumComidas: " + numComidas.ToString());
+            Debug.WriteLine("NumFechas: " + numFechas.ToString());
+            Debug.WriteLine("fechaCount: " + fecha.Count());
 
             for (int i = 0; i < 8; i++)
             {
@@ -99,11 +104,14 @@ namespace Dieta
                 {
                     nombreComida.Visibility = Visibility.Hidden;
                     line.Visibility = Visibility.Hidden;
+
                 }
                 else
                 {
                     //NombreComida1.Content = fecha[0].Comidas[0].comida;
                     nombreComida.Content = fecha[pos].Comidas[i].comida;
+                    Debug.WriteLine("i: " + i);
+
                     //line.Content = fecha[i].Comidas[i].comida;
                     calorias[i] = fecha[pos].Comidas[i].calorias;
                 }
@@ -135,12 +143,21 @@ namespace Dieta
 
             for(int i=0; i <8; i++)
             {
-                if (i <= numComidas)
+                if (i < numComidas)
                 {
                     var l = string.Format("line{0}", i + 1);
                     var line = (Line)this.FindName(l);
 
+                    var nC = string.Format("NombreComida{0}", i + 1);
+                    var nombreComida = (Label)this.FindName(nC);
+
+                    nombreComida.Visibility = Visibility.Visible;
+                    line.Visibility = Visibility.Visible;
+
                     line.Width = calorias[i]/caloriasMax * 14 + 9;  //9 = 0% 23 = 100% [14-23]
+
+                    Debug.WriteLine(i + " lineWidth: " + line.Width.ToString());
+
                 }
 
                 var numC = string.Format("NumCal{0}", 8 - i);
