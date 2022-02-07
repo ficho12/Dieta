@@ -104,7 +104,6 @@ namespace Dieta
         {
             Fecha fecha = (Fecha)(listaFecha.SelectedItem);
 
-
             Comida comida = new Comida(COMIDA.Text,Convert.ToDouble(CALORIAS.Text));
 
             
@@ -112,6 +111,7 @@ namespace Dieta
             if (listaDate.Remove(fecha))
             {
                 fecha.Comidas.Add(comida);
+                fecha.totalCalorias += comida.calorias;
                 listaDay.Add(comida);
                 listaDate.Add(fecha);
                 //listaDia.ItemsSource = fecha.Comidas;
@@ -127,7 +127,7 @@ namespace Dieta
                 //Error
             }
 
-            
+            listaFecha.SelectedItem = fecha;                                       // Arreglo de lo de arriba, hacer con el boton de añadir también
 
             GuardarArchivoTmp();
         }
@@ -139,18 +139,22 @@ namespace Dieta
             listaFecha.ItemsSource = listaDate;
         }
 
-        private void EliminarComida_Click(object sender, RoutedEventArgs e)
+        private void EliminarComida_Click(object sender, RoutedEventArgs e)         //No deja eliminar Dos a la vez (Usar variable para last fecha selection?)
         {
             Fecha fecha = (Fecha)(listaFecha.SelectedItem);
-            if(listaDate.Contains(fecha))
+            Comida comida = (Comida)(listaDia.SelectedItem);
+            if (listaDate.Contains(fecha))
             {
                 listaDate.Remove(fecha);
+                fecha.totalCalorias -= comida.calorias;
                 fecha.Comidas.Remove((Comida)(listaDia.SelectedItem));
                 listaDate.Add(fecha);
                 listaDay.Remove((Comida)(listaDia.SelectedItem));
                 //listaDia.ItemsSource = fecha.Comidas;
                 GuardarArchivoTmp();
             }
+
+            listaFecha.SelectedItem = fecha;                                       // Arreglo de lo de arriba, hacer con el boton de añadir también
         }
 
 
