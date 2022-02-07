@@ -225,7 +225,7 @@
 
                 </Canvas>
 
-                <Canvas x:Name="CanvasDia" Visibility="Visible" Background="Beige" VerticalAlignment="Center" HorizontalAlignment="Center" Height="17" Width="37">
+                <Canvas x:Name="CanvasDias" Visibility="Visible" Background="Beige" VerticalAlignment="Center" HorizontalAlignment="Center" Height="17" Width="37">
                     <Line x:Name="lineDia1" Visibility="Visible" Stroke="Red" StrokeThickness="2" Fill="Blue" X1="9" X2="30" Canvas.Top="13" Canvas.Left="-8" Width="23">
                         <Line.RenderTransform>
                             <TransformGroup>
@@ -403,7 +403,7 @@
                                 <ScaleTransform ScaleX=".05" ScaleY="0.5"/>
                                 <SkewTransform/>
                                 <RotateTransform Angle="90"/>
-                                <TranslateTransform/>
+                                <TranslateTransform X="-.5"/>
                             </TransformGroup>
                         </Line.RenderTransform>
                     </Line>
@@ -413,7 +413,7 @@
                                 <ScaleTransform ScaleX=".05" ScaleY="0.5"/>
                                 <SkewTransform/>
                                 <RotateTransform Angle="90"/>
-                                <TranslateTransform/>
+                                <TranslateTransform X="-.5"/>
                             </TransformGroup>
                         </Line.RenderTransform>
                     </Line>
@@ -423,7 +423,7 @@
                                 <ScaleTransform ScaleX=".05" ScaleY="0.5"/>
                                 <SkewTransform/>
                                 <RotateTransform Angle="90"/>
-                                <TranslateTransform/>
+                                <TranslateTransform X="-.5"/>
                             </TransformGroup>
                         </Line.RenderTransform>
                     </Line>
@@ -433,7 +433,7 @@
                                 <ScaleTransform ScaleX=".05" ScaleY="0.5"/>
                                 <SkewTransform/>
                                 <RotateTransform Angle="90"/>
-                                <TranslateTransform/>
+                                <TranslateTransform X="-.5"/>
                             </TransformGroup>
                         </Line.RenderTransform>
                     </Line>
@@ -443,7 +443,7 @@
                                 <ScaleTransform ScaleX=".05" ScaleY="0.5"/>
                                 <SkewTransform/>
                                 <RotateTransform Angle="90"/>
-                                <TranslateTransform/>
+                                <TranslateTransform X="-.5"/>
                             </TransformGroup>
                         </Line.RenderTransform>
                     </Line>
@@ -453,7 +453,7 @@
                                 <ScaleTransform ScaleX=".05" ScaleY="0.5"/>
                                 <SkewTransform/>
                                 <RotateTransform Angle="90"/>
-                                <TranslateTransform/>
+                                <TranslateTransform X="-.5"/>
                             </TransformGroup>
                         </Line.RenderTransform>
                     </Line>
@@ -463,7 +463,7 @@
                                 <ScaleTransform ScaleX=".05" ScaleY="0.5"/>
                                 <SkewTransform/>
                                 <RotateTransform Angle="90"/>
-                                <TranslateTransform/>
+                                <TranslateTransform X="-.5"/>
                             </TransformGroup>
                         </Line.RenderTransform>
                     </Line>
@@ -473,19 +473,19 @@
                                 <ScaleTransform ScaleX=".05" ScaleY="0.5"/>
                                 <SkewTransform/>
                                 <RotateTransform Angle="90"/>
-                                <TranslateTransform/>
+                                <TranslateTransform X="-.5"/>
                             </TransformGroup>
                         </Line.RenderTransform>
                     </Line>
 
-                    <Label Name="NumCalDia1" Visibility="Visible" Content="0" Foreground="Black" Height="12" Canvas.Left="-3" Width="15" Canvas.Top="10" FontSize="0.7" HorizontalContentAlignment="Left" />
-                    <Label Name="NumCalDia2" Visibility="Visible" Content="0" Foreground="Black" Height="12" Canvas.Left="-3" Width="15" Canvas.Top="8" FontSize="0.7" HorizontalContentAlignment="Left" />
-                    <Label Name="NumCalDia3" Visibility="Visible" Content="0" Foreground="Black" Height="12" Canvas.Left="-3" Width="15" Canvas.Top="6" FontSize="0.7" HorizontalContentAlignment="Left" />
-                    <Label Name="NumCalDia4" Visibility="Visible" Content="0" Foreground="Black" Height="12" Canvas.Left="-3" Width="15" Canvas.Top="4" FontSize="0.7" HorizontalContentAlignment="Left" />
-                    <Label Name="NumCalDia5" Visibility="Visible" Content="0" Foreground="Black" Height="12" Canvas.Left="-3" Width="15" Canvas.Top="2" FontSize="0.7" HorizontalContentAlignment="Left" />
-                    <Label Name="NumCalDia6" Visibility="Visible" Content="0" Foreground="Black" Height="12" Canvas.Left="-3" Width="15" FontSize="0.7" HorizontalContentAlignment="Left" />
-                    <Label Name="NumCalDia7" Visibility="Visible" Content="0" Foreground="Black" Height="12" Canvas.Left="-3" Width="15" Canvas.Top="-2" FontSize="0.7" HorizontalContentAlignment="Left" />
-                    <Label Name="NumCalDia8" Visibility="Visible" Content="0" Foreground="Black" Height="12" Canvas.Left="-3" Width="15" Canvas.Top="-4" FontSize="0.7" HorizontalContentAlignment="Left" />
+                    <Label Name="NumCalDia1" Visibility="Visible" Content="0" Foreground="Black" Height="12" Canvas.Left="-4" Width="15" Canvas.Top="10" FontSize="0.6" HorizontalContentAlignment="Left" />
+                    <Label Name="NumCalDia2" Visibility="Visible" Content="0" Foreground="Black" Height="12" Canvas.Left="-4" Width="15" Canvas.Top="8" FontSize="0.6" HorizontalContentAlignment="Left" />
+                    <Label Name="NumCalDia3" Visibility="Visible" Content="0" Foreground="Black" Height="12" Canvas.Left="-4" Width="15" Canvas.Top="6" FontSize="0.6" HorizontalContentAlignment="Left" />
+                    <Label Name="NumCalDia4" Visibility="Visible" Content="0" Foreground="Black" Height="12" Canvas.Left="-4" Width="15" Canvas.Top="4" FontSize="0.6" HorizontalContentAlignment="Left" />
+                    <Label Name="NumCalDia5" Visibility="Visible" Content="0" Foreground="Black" Height="12" Canvas.Left="-4" Width="15" Canvas.Top="2" FontSize="0.6" HorizontalContentAlignment="Left" />
+                    <Label Name="NumCalDia6" Visibility="Visible" Content="0" Foreground="Black" Height="12" Canvas.Left="-4" Width="15" FontSize="0.6" HorizontalContentAlignment="Left" />
+                    <Label Name="NumCalDia7" Visibility="Visible" Content="0" Foreground="Black" Height="12" Canvas.Left="-4" Width="15" Canvas.Top="-2" FontSize="0.6" HorizontalContentAlignment="Left" />
+                    <Label Name="NumCalDia8" Visibility="Visible" Content="0" Foreground="Black" Height="12" Canvas.Left="-4" Width="15" Canvas.Top="-4" FontSize="0.6" HorizontalContentAlignment="Left" />
 
 
                     <Label Name="Dia1" Visibility="Visible" Content="17/06" Foreground="Black" Height="12" Canvas.Left="-3" Width="15" Canvas.Top="11" FontSize="0.6" HorizontalContentAlignment="Center" />

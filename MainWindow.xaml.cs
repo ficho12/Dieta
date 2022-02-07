@@ -131,25 +131,6 @@ namespace Dieta
                     //line.Content = fecha[i].Comidas[i].comida;
                     calorias[i] = fecha[pos].Comidas[i].calorias;
                 }
-
-                var d = string.Format("Dia{0}", i + 1);
-                var dia = (Label)this.FindName(d);
-
-                var lD = string.Format("lineDia{0}", i + 1);
-                var lineDia = (Line)this.FindName(lD);
-
-                if (i >= numFechas)
-                {
-                    dia.Visibility = Visibility.Hidden;
-                    lineDia.Visibility = Visibility.Hidden;
-                }
-                else
-                {
-                    //NombreComida1.Content = fecha[0].Comidas[0].comida;
-                    dia.Content = fecha[pos + i].fecha.ToString();
-                    //line.Content = fecha[i].Comidas[i].comida;
-                    //calorias[i] = fecha[pos].Comidas[i].calorias;
-                }
             }
 
             caloriasMax = calorias.Max();
@@ -185,6 +166,72 @@ namespace Dieta
                 numCal.Content = resto;
                 resto -= division;
 
+            }
+
+            calorias = new double[7];
+
+            for (int i=0; i<17; i++)
+            { 
+                var d = string.Format("Dia{0}", i + 1);
+                var dia = (Label)this.FindName(d);
+
+                var lD = string.Format("lineDia{0}", i + 1);
+                var lineDia = (Line)this.FindName(lD);
+
+                if (i >= numFechas)
+                {
+                    Debug.WriteLine("1." + i + dia.ToString());
+                    dia.Visibility = Visibility.Hidden; //null reference(?)
+                    Debug.WriteLine("2." + i + dia.ToString());
+                    lineDia.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    //NombreComida1.Content = fecha[0].Comidas[0].comida;
+
+                    calorias[i] = fecha[pos + i].totalCalorias;
+
+                    //line.Content = fecha[i].Comidas[i].comida;
+                    //calorias[i] = fecha[pos].Comidas[i].calorias;
+                }
+            }
+
+            caloriasMax = calorias.Max();
+            division = caloriasMax / 7;
+            division = Math.Truncate(division);
+            resto = caloriasMax;
+
+            for (int i = 0; i < 17; i++)
+            {
+                var d = string.Format("Dia{0}", i + 1);
+                var dia = (Label)this.FindName(d);
+
+                var lD = string.Format("lineDia{0}", i + 1);
+                var lineDia = (Line)this.FindName(lD);
+
+                if (i < numFechas)
+                {
+                    dia.Content = fecha[pos + i].fecha.Day + "/" + fecha[pos + i].fecha.Month;
+                    dia.Visibility = Visibility.Visible;
+                    lineDia.Visibility = Visibility.Visible;
+
+                    lineDia.Width = fecha[pos + i].totalCalorias / caloriasMax * 14 + 9;  //9 = 0% 23 = 100% [14-23]
+
+                    Debug.WriteLine(i + " lineWidth: " + lineDia.Width.ToString());
+
+                }
+
+                if(i<8)
+                {
+                    var numC = string.Format("NumCalDia{0}", 8 - i);
+                    var numCal = (Label)this.FindName(numC);
+
+                    if (i == 7)
+                        resto = 0;
+
+                    numCal.Content = resto;
+                    resto -= division;
+                }
             }
         }
 
