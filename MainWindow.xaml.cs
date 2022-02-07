@@ -129,21 +129,25 @@ namespace Dieta
             }
 
             caloriasMax = calorias.Max();
-            division = caloriasMax % 8;
+            division = caloriasMax / 7;
+            division = Math.Truncate(division);
             resto = caloriasMax;
 
             for(int i=0; i <8; i++)
             {
-                if (i < numComidas)
+                if (i <= numComidas)
                 {
                     var l = string.Format("line{0}", i + 1);
                     var line = (Line)this.FindName(l);
 
-                    line.Width = calorias[i]/caloriasMax * 23;
+                    line.Width = calorias[i]/caloriasMax * 14 + 9;  //9 = 0% 23 = 100% [14-23]
                 }
 
                 var numC = string.Format("NumCal{0}", 8 - i);
                 var numCal = (Label)this.FindName(numC);
+
+                if (i == 7)
+                    resto = 0;
 
                 numCal.Content = resto;
                 resto -= division;

@@ -95,7 +95,7 @@ namespace Dieta
 
                 if (pasarTabla != null)
                 {
-                    pasarTabla(this, new TablaEventArgs(listaDate, listaFecha.SelectedIndex));
+                    pasarTabla(this, new TablaEventArgs(listaDate, listaDate.IndexOf(fecha)));
                 }
             }
         }
@@ -118,7 +118,7 @@ namespace Dieta
 
                 if (pasarTabla != null)
                 {
-                    pasarTabla(this, new TablaEventArgs(listaDate, listaFecha.SelectedIndex));
+                    pasarTabla(this, new TablaEventArgs(listaDate, listaDate.IndexOf(fecha)));
                 }
 
             }
