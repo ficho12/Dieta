@@ -226,7 +226,7 @@ namespace Dieta
                         {
                             Debug.WriteLine("pos " + pos + ", i " + i + ", comidasCount " + fecha[pos].Comidas.Count());
                             lineDia.Visibility = Visibility.Visible;
-                            lineDia.Stroke = Brushes.Red; //DevolverColor(j);
+                            lineDia.Stroke = DevolverColor(j);
                             lineDia.Width = fecha[pos + i].totalCalorias / caloriasMax * 14 + 9;  //9 = 0% 23 = 100% [14-23]
                             restoCal -= fecha[pos + i].Comidas[j-1].calorias;
                             Debug.WriteLine(i + " lineWidth: " + lineDia.Width.ToString());
@@ -236,11 +236,11 @@ namespace Dieta
                             linea[j-1] = ElementClone<Line>(lineDia);           //  Parece que el error está aquí
 
                             linea[j-1].Name = string.Format("lineDia{0}_{0}", i + 1, j);
-                            linea[j - 1].Stroke = Brushes.Violet;// DevolverColor(j);
+                            linea[j-1].Stroke = DevolverColor(j);
                             linea[j-1].Visibility = Visibility.Visible;
                             linea[j-1].Width = restoCal / caloriasMax * 14 + 9;  //9 = 0% 23 = 100% [14-23] //Ojo con esto  no se si está bien recemos
                             Debug.WriteLine(i + ", " + (j-1) + " lineWidth: " + linea[j-1].Width.ToString());
-                            canvas.Children.Add(linea[j - 1]);
+                            canvas.Children.Add(linea[j-1]);
                             restoCal -= fecha[pos + i].Comidas[j].calorias;
                         }
                     }
