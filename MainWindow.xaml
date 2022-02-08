@@ -228,23 +228,23 @@
                 </Canvas>
 
                 <Canvas x:Name="CanvasDias" Visibility="Visible" Background="Beige" VerticalAlignment="Center" HorizontalAlignment="Center" Height="17" Width="37">
-                    <Line x:Name="lineDia1" Visibility="Visible" Stroke="Red" StrokeThickness="2" Fill="Blue" X1="9" X2="30" Canvas.Top="13" Canvas.Left="-8" Width="23">
+                    <Line x:Name="lineDia1" Visibility="Visible" Stroke="Red" StrokeThickness="1" X1="0.2" X2="14.34" Width="16" Canvas.Left="3" Canvas.Top="1">
                         <Line.RenderTransform>
                             <TransformGroup>
-                                <ScaleTransform ScaleY="-1"/>
+                                <ScaleTransform/>
                                 <SkewTransform/>
-                                <RotateTransform Angle="-90"/>
-                                <TranslateTransform X="12.5" Y="11.5"/>
+                                <RotateTransform Angle="90"/>
+                                <TranslateTransform/>
                             </TransformGroup>
                         </Line.RenderTransform>
                     </Line>
-                    <Line x:Name="lineDia2" Visibility="Visible" Stroke="Blue" StrokeThickness="2" Fill="Blue" X1="9" X2="30" Canvas.Top="13" Canvas.Left="-6" Width="23">
+                    <Line x:Name="lineDia2" Visibility="Visible" Stroke="Blue" StrokeThickness="1" X1="0.2" X2="14.34" Width="14" Canvas.Top="1" Canvas.Left="5">
                         <Line.RenderTransform>
                             <TransformGroup>
-                                <ScaleTransform ScaleY="-1"/>
+                                <ScaleTransform/>
                                 <SkewTransform/>
-                                <RotateTransform Angle="-90"/>
-                                <TranslateTransform X="12.5" Y="11.5"/>
+                                <RotateTransform Angle="90"/>
+                                <TranslateTransform/>
                             </TransformGroup>
                         </Line.RenderTransform>
                     </Line>
@@ -490,23 +490,23 @@
                     <Label Name="NumCalDia8" Visibility="Visible" Content="0" Foreground="Black" Height="12" Canvas.Left="-4" Width="15" Canvas.Top="-4" FontSize="0.6" HorizontalContentAlignment="Left" />
 
 
-                    <Label Name="Dia1" Visibility="Visible" Content="17/06" Foreground="Black" Height="12" Canvas.Left="-3" Width="15" Canvas.Top="11" FontSize="0.6" HorizontalContentAlignment="Center" />
-                    <Label Name="Dia2" Visibility="Visible" Content="17/06" Foreground="Black" Height="12" Canvas.Left="-1" Width="15" Canvas.Top="11" FontSize="0.6" HorizontalContentAlignment="Center" />
-                    <Label Name="Dia3" Visibility="Visible" Content="17/06" Foreground="Black" Height="12" Canvas.Left="1" Width="15" Canvas.Top="11" FontSize="0.6" HorizontalContentAlignment="Center" />
-                    <Label Name="Dia4" Visibility="Visible" Content="17/06" Foreground="Black" Height="12" Canvas.Left="3" Width="15" Canvas.Top="11" FontSize="0.6" HorizontalContentAlignment="Center" />
-                    <Label Name="Dia5" Visibility="Visible" Content="17/06" Foreground="Black" Height="12" Canvas.Left="5" Width="15" Canvas.Top="11" FontSize="0.6" HorizontalContentAlignment="Center" />
-                    <Label Name="Dia6" Visibility="Visible" Content="17/06" Foreground="Black" Height="12" Canvas.Left="7" Width="15" Canvas.Top="11" FontSize="0.6" HorizontalContentAlignment="Center" />
-                    <Label Name="Dia7" Visibility="Visible" Content="20/05" Foreground="Black" Height="12" Canvas.Left="9" Width="15" Canvas.Top="11" FontSize="0.6" HorizontalContentAlignment="Center" />
-                    <Label Name="Dia8" Visibility="Visible" Content="31/12" Foreground="Black" Height="12" Canvas.Left="11" Width="15" Canvas.Top="11" FontSize="0.6" HorizontalContentAlignment="Center" />
-                    <Label Name="Dia9" Visibility="Visible" Content="17/06" Foreground="Black" Height="12" Canvas.Left="13" Width="15" Canvas.Top="11" FontSize="0.6" HorizontalContentAlignment="Center" />
-                    <Label Name="Dia10" Visibility="Visible" Content="17/06" Foreground="Black" Height="12" Canvas.Left="15" Width="15" Canvas.Top="11" FontSize="0.6" HorizontalContentAlignment="Center" />
-                    <Label Name="Dia11" Visibility="Visible" Content="17/06" Foreground="Black" Height="12" Canvas.Left="17" Width="15" Canvas.Top="11" FontSize="0.6" HorizontalContentAlignment="Center" />
-                    <Label Name="Dia12" Visibility="Visible" Content="20/05" Foreground="Black" Height="12" Canvas.Left="19" Width="15" Canvas.Top="11" FontSize="0.6" HorizontalContentAlignment="Center" />
-                    <Label Name="Dia13" Visibility="Visible" Content="31/12" Foreground="Black" Height="12" Canvas.Left="21" Width="15" Canvas.Top="11" FontSize="0.6" HorizontalContentAlignment="Center" />
-                    <Label Name="Dia14" Visibility="Visible" Content="17/06" Foreground="Black" Height="12" Canvas.Left="23" Width="15" Canvas.Top="11" FontSize="0.6" HorizontalContentAlignment="Center" />
-                    <Label Name="Dia15" Visibility="Visible" Content="17/06" Foreground="Black" Height="12" Canvas.Left="25" Width="15" Canvas.Top="11" FontSize="0.6" HorizontalContentAlignment="Center" />
-                    <Label Name="Dia16" Visibility="Visible" Content="17/06" Foreground="Black" Height="12" Canvas.Left="27" Width="15" Canvas.Top="11" FontSize="0.6" HorizontalContentAlignment="Center" />
-                    <Label Name="Dia17" Visibility="Visible" Content="20/05" Foreground="Black" Height="12" Canvas.Left="29" Width="15" Canvas.Top="11" FontSize="0.6" HorizontalContentAlignment="Center" />
+                    <Label Name="Dia1" Visibility="Visible" Content="17/06" Foreground="Black" Height="12" Canvas.Left="-4" Width="15" Canvas.Top="11" FontSize="0.6" HorizontalContentAlignment="Center" />
+                    <Label Name="Dia2" Visibility="Visible" Content="17/06" Foreground="Black" Height="12" Canvas.Left="-2" Width="15" Canvas.Top="11" FontSize="0.6" HorizontalContentAlignment="Center" />
+                    <Label Name="Dia3" Visibility="Visible" Content="17/06" Foreground="Black" Height="12" Canvas.Left="0" Width="15" Canvas.Top="11" FontSize="0.6" HorizontalContentAlignment="Center" />
+                    <Label Name="Dia4" Visibility="Visible" Content="17/06" Foreground="Black" Height="12" Canvas.Left="2" Width="15" Canvas.Top="11" FontSize="0.6" HorizontalContentAlignment="Center" />
+                    <Label Name="Dia5" Visibility="Visible" Content="17/06" Foreground="Black" Height="12" Canvas.Left="4" Width="15" Canvas.Top="11" FontSize="0.6" HorizontalContentAlignment="Center" />
+                    <Label Name="Dia6" Visibility="Visible" Content="17/06" Foreground="Black" Height="12" Canvas.Left="6" Width="15" Canvas.Top="11" FontSize="0.6" HorizontalContentAlignment="Center" />
+                    <Label Name="Dia7" Visibility="Visible" Content="20/05" Foreground="Black" Height="12" Canvas.Left="8" Width="15" Canvas.Top="11" FontSize="0.6" HorizontalContentAlignment="Center" />
+                    <Label Name="Dia8" Visibility="Visible" Content="31/12" Foreground="Black" Height="12" Canvas.Left="10" Width="15" Canvas.Top="11" FontSize="0.6" HorizontalContentAlignment="Center" />
+                    <Label Name="Dia9" Visibility="Visible" Content="17/06" Foreground="Black" Height="12" Canvas.Left="12" Width="15" Canvas.Top="11" FontSize="0.6" HorizontalContentAlignment="Center" />
+                    <Label Name="Dia10" Visibility="Visible" Content="17/06" Foreground="Black" Height="12" Canvas.Left="14" Width="15" Canvas.Top="11" FontSize="0.6" HorizontalContentAlignment="Center" />
+                    <Label Name="Dia11" Visibility="Visible" Content="17/06" Foreground="Black" Height="12" Canvas.Left="16" Width="15" Canvas.Top="11" FontSize="0.6" HorizontalContentAlignment="Center" />
+                    <Label Name="Dia12" Visibility="Visible" Content="20/05" Foreground="Black" Height="12" Canvas.Left="18" Width="15" Canvas.Top="11" FontSize="0.6" HorizontalContentAlignment="Center" />
+                    <Label Name="Dia13" Visibility="Visible" Content="31/12" Foreground="Black" Height="12" Canvas.Left="20" Width="15" Canvas.Top="11" FontSize="0.6" HorizontalContentAlignment="Center" />
+                    <Label Name="Dia14" Visibility="Visible" Content="17/06" Foreground="Black" Height="12" Canvas.Left="22" Width="15" Canvas.Top="11" FontSize="0.6" HorizontalContentAlignment="Center" />
+                    <Label Name="Dia15" Visibility="Visible" Content="17/06" Foreground="Black" Height="12" Canvas.Left="24" Width="15" Canvas.Top="11" FontSize="0.6" HorizontalContentAlignment="Center" />
+                    <Label Name="Dia16" Visibility="Visible" Content="17/06" Foreground="Black" Height="12" Canvas.Left="26" Width="15" Canvas.Top="11" FontSize="0.6" HorizontalContentAlignment="Center" />
+                    <Label Name="Dia17" Visibility="Visible" Content="20/05" Foreground="Black" Height="12" Canvas.Left="28" Width="15" Canvas.Top="11" FontSize="0.6" HorizontalContentAlignment="Center" />
                 </Canvas>
             </Grid>
         </Viewbox>
