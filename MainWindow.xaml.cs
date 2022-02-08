@@ -104,6 +104,7 @@ namespace Dieta
             int numComidas = fecha[pos].Comidas.Count<Comida>();
             int numFechas = fecha.Count() - pos;
 
+            eliminarLineas();
             Debug.WriteLine("Pos: " + pos.ToString());
             Debug.WriteLine("NumComidas: " + numComidas.ToString());
             Debug.WriteLine("NumFechas: " + numFechas.ToString());
@@ -234,7 +235,7 @@ namespace Dieta
                         else
                         {
                             linea[j-1] = ElementClone<Line>(lineDia);           //  Parece que el error está aquí
-
+                            linea[j - 1].Uid += "aBorrar";
                             linea[j-1].Name = string.Format("lineDia{0}_{0}", i + 1, j);
                             linea[j-1].Stroke = DevolverColor(j);
                             linea[j-1].Visibility = Visibility.Visible;
@@ -428,6 +429,23 @@ namespace Dieta
             }
 
             return (T)reconstructedElement;
+        }
+
+        private void eliminarLineas()
+        {
+            Canvas canvas = (Canvas)this.FindName("CanvasDias");
+            List<UIElement> aBorrar = new List<UIElement>();
+
+            foreach (UIElement ui in canvas.Children)
+            {
+                if(ui.Uid.Contains("aBorrar"))
+                    aBorrar.Add(ui);
+            }
+
+            foreach (UIElement ui in aBorrar)
+            {
+                canvas.Children.Remove(ui);
+            }
         }
     }
   }
