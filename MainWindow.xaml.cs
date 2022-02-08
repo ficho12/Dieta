@@ -16,6 +16,7 @@ using System.IO;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using Microsoft.Win32;
+using System.Windows.Markup;
 
 namespace Dieta
 {
@@ -49,7 +50,7 @@ namespace Dieta
             archivoTmp = directorioTmp + "\\tmpData.bin";
             archivoActual = archivoTmp;
 
-            if(File.Exists(archivoActual))
+            if (File.Exists(archivoActual))
             {
                 CargarArchivoTmp(archivoActual);
             }
@@ -68,7 +69,7 @@ namespace Dieta
             tb.pasarTabla += pasarTabla;
             tb.cambiarGrafica += cambiarGrafica;
 
-            
+
             /*
             if (tablas.DialogResult == true)
             {
@@ -110,13 +111,13 @@ namespace Dieta
 
             for (int i = 0; i < 8; i++)
             {
-                var nC = string.Format("NombreComida{0}", i+1);
+                var nC = string.Format("NombreComida{0}", i + 1);
                 var nombreComida = (Label)this.FindName(nC);
 
-                var l = string.Format("line{0}", i+1);
+                var l = string.Format("line{0}", i + 1);
                 var line = (Line)this.FindName(l);
 
-                if (i>=numComidas)
+                if (i >= numComidas)
                 {
                     nombreComida.Visibility = Visibility.Hidden;
                     line.Visibility = Visibility.Hidden;
@@ -138,7 +139,7 @@ namespace Dieta
             division = Math.Truncate(division);
             resto = caloriasMax;
 
-            for(int i=0; i <8; i++)
+            for (int i = 0; i < 8; i++)
             {
                 if (i < numComidas)
                 {
@@ -151,7 +152,7 @@ namespace Dieta
                     nombreComida.Visibility = Visibility.Visible;
                     line.Visibility = Visibility.Visible;
 
-                    line.Width = calorias[i]/caloriasMax * 14 + 9;  //9 = 0% 23 = 100% [14-23]
+                    line.Width = calorias[i] / caloriasMax * 14 + 9;  //9 = 0% 23 = 100% [14-23]
 
                     Debug.WriteLine(i + " lineWidth: " + line.Width.ToString());
 
@@ -170,8 +171,8 @@ namespace Dieta
 
             calorias = new double[7];
 
-            for (int i=0; i<17; i++)
-            { 
+            for (int i = 0; i < 17; i++)
+            {
                 var d = string.Format("Dia{0}", i + 1);
                 var dia = (Label)this.FindName(d);
 
@@ -180,9 +181,9 @@ namespace Dieta
 
                 if (i >= numFechas)
                 {
-                    Debug.WriteLine("1." + i + dia.ToString());
+                    //Debug.WriteLine("1." + i + dia.ToString());
                     dia.Visibility = Visibility.Hidden; //null reference(?)
-                    Debug.WriteLine("2." + i + dia.ToString());
+                    //Debug.WriteLine("2." + i + dia.ToString());
                     lineDia.Visibility = Visibility.Hidden;
                 }
                 else
@@ -201,27 +202,54 @@ namespace Dieta
             division = Math.Truncate(division);
             resto = caloriasMax;
 
+            Canvas canvas = (Canvas)this.FindName("CanvasDias");
+            Line[] linea;
+            linea = new Line[18];
+
             for (int i = 0; i < 17; i++)
             {
+
                 var d = string.Format("Dia{0}", i + 1);
                 var dia = (Label)this.FindName(d);
 
                 var lD = string.Format("lineDia{0}", i + 1);
                 var lineDia = (Line)this.FindName(lD);
 
-                if (i < numFechas)
-                {
+
+                if (i < numFechas)      //meter bucle con el for de arriba para crear y calcular el tamaño de las lineas, como se superponen hacer
+                {                       //en orden inverso ( empezar por la última, la linea definida en xaml
+                    double restoCal = fecha[pos + i].totalCalorias;
+
+                    for (int j = fecha[pos+i].Comidas.Count(); j > 0; j--)          //Antes de empezar borrar lineas anteriores
+                    {
+                        if (j== fecha[pos+i].Comidas.Count())
+                        {
+                            Debug.WriteLine("pos " + pos + ", i " + i + ", comidasCount " + fecha[pos].Comidas.Count());
+                            lineDia.Visibility = Visibility.Visible;
+                            lineDia.Stroke = Brushes.Red; //DevolverColor(j);
+                            lineDia.Width = fecha[pos + i].totalCalorias / caloriasMax * 14 + 9;  //9 = 0% 23 = 100% [14-23]
+                            restoCal -= fecha[pos + i].Comidas[j-1].calorias;
+                            Debug.WriteLine(i + " lineWidth: " + lineDia.Width.ToString());
+                        }
+                        else
+                        {
+                            linea[j-1] = ElementClone<Line>(lineDia);           //  Parece que el error está aquí
+
+                            linea[j-1].Name = string.Format("lineDia{0}_{0}", i + 1, j);
+                            linea[j - 1].Stroke = Brushes.Violet;// DevolverColor(j);
+                            linea[j-1].Visibility = Visibility.Visible;
+                            linea[j-1].Width = restoCal / caloriasMax * 14 + 9;  //9 = 0% 23 = 100% [14-23] //Ojo con esto  no se si está bien recemos
+                            Debug.WriteLine(i + ", " + (j-1) + " lineWidth: " + linea[j-1].Width.ToString());
+                            canvas.Children.Add(linea[j - 1]);
+                            restoCal -= fecha[pos + i].Comidas[j].calorias;
+                        }
+                    }
+
                     dia.Content = fecha[pos + i].fecha.Day + "/" + fecha[pos + i].fecha.Month;
                     dia.Visibility = Visibility.Visible;
-                    lineDia.Visibility = Visibility.Visible;
-
-                    lineDia.Width = fecha[pos + i].totalCalorias / caloriasMax * 14 + 9;  //9 = 0% 23 = 100% [14-23]
-
-                    Debug.WriteLine(i + " lineWidth: " + lineDia.Width.ToString());
-
                 }
 
-                if(i<8)
+                if (i < 8)
                 {
                     var numC = string.Format("NumCalDia{0}", 8 - i);
                     var numCal = (Label)this.FindName(numC);
@@ -280,7 +308,7 @@ namespace Dieta
             dialog.FilterIndex = 2;
             dialog.RestoreDirectory = true;
 
-            if((bool)dialog.ShowDialog())
+            if ((bool)dialog.ShowDialog())
             {
                 archivoActual = dialog.FileName.ToString();
                 GuardarArchivo(archivoActual);
@@ -291,13 +319,13 @@ namespace Dieta
                 MostrarCuadro("No se ha podido guardar el archivo con el nombre especificado.", "Error al seleccionar archivo a guardar");
             }
 
-            
 
-           // writer = new StreamWriter(dialog.FileName.ToString());
 
-            
-           // writer.WriteLine("prueba");
-           // writer.Close();
+            // writer = new StreamWriter(dialog.FileName.ToString());
+
+
+            // writer.WriteLine("prueba");
+            // writer.Close();
 
         }
 
@@ -323,6 +351,16 @@ namespace Dieta
             BinarySerialization.WriteToBinaryFile(s, new List<Fecha>(listaDate));
         }
 
+        private void BotonIzq_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BotonDch_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         private void CargarArchivoTmp(string s)
         {
             listaDate = new ObservableCollection<Fecha>(BinarySerialization.ReadFromBinaryFile<List<Fecha>>(s));
@@ -332,6 +370,64 @@ namespace Dieta
         {
             MessageBoxButton boton = MessageBoxButton.OK;
             MessageBox.Show(msg, titulo, boton);
+        }
+
+        private SolidColorBrush DevolverColor(int s)
+        {
+            if (s >= 9)
+                s -= 8;
+
+            switch(s)
+            {
+                case 1:     return Brushes.Red;
+                case 2:     return Brushes.Blue;
+                case 3:     return Brushes.Pink;
+                case 4:     return Brushes.Gray;
+                case 5:     return Brushes.Green;
+                case 6:     return Brushes.Orange;
+                case 7:     return Brushes.Yellow;
+                case 8:     return Brushes.Purple;
+            }
+
+            return Brushes.Black;
+        }
+
+        /// <summary>
+        /// Clones an element.
+        /// </summary>
+        public static T ElementClone<T>(T element)
+        {
+            T clone = default(T);
+            MemoryStream memStream = ElementToStream(element);
+            clone = ElementFromStream<T>(memStream);
+            return clone;
+        }
+
+        /// <summary>
+        /// Saves an element as MemoryStream.
+        /// </summary>
+        public static MemoryStream ElementToStream(object element)
+        {
+            MemoryStream memStream = new MemoryStream();
+            XamlWriter.Save(element, memStream);
+            return memStream;
+        }
+
+        /// <summary>
+        /// Rebuilds an element from a MemoryStream.
+        /// </summary>
+        public static T ElementFromStream<T>(MemoryStream elementAsStream)
+        {
+            object reconstructedElement = null;
+
+            if (elementAsStream.CanRead)
+            {
+                elementAsStream.Seek(0, SeekOrigin.Begin);
+                reconstructedElement = XamlReader.Load(elementAsStream);
+                elementAsStream.Close();
+            }
+
+            return (T)reconstructedElement;
         }
     }
   }
