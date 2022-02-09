@@ -20,7 +20,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <DatePicker Name="dp" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Margin="10,10,0,10"/>
+        <DatePicker Name="dp"  Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Margin="10,10,0,10"/>
 
         <Button Content="Crear tabla" Grid.Column="1" HorizontalAlignment="Right" Click="CrearTabla_Click" RenderTransformOrigin="0.045,0.591" Margin="0,10,10,10"/>
 

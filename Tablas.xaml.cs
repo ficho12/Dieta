@@ -99,13 +99,22 @@ namespace Dieta
         private void CrearTabla_Click(object sender, RoutedEventArgs e)
         {
             Fecha fecha = new Fecha((DateTime)dp.SelectedDate);
-            listaDate.Add(fecha);
-            listaDate = new ObservableCollection<Fecha>(listaDate.OrderBy(i => i.fecha));
-            listaFecha.ItemsSource = listaDate;
-            //Animals = new ObservableCollection<string>(Animals.OrderBy(i => i));
-            listaDay = new ObservableCollection<Comida>(fecha.Comidas);
-            listaDia.ItemsSource = listaDay;
-            GuardarArchivoTmp();
+
+            if (listaDate.Any(f => f.fecha == fecha.fecha)) //Ya existe la fecha, no se añade
+            {
+                MessageBoxButton boton = MessageBoxButton.OK;
+                MessageBox.Show("Seleccione una fecha que no se encuentre en la lista", "Error al añadir fecha", boton);
+            }
+            else
+            {
+                listaDate.Add(fecha);
+                listaDate = new ObservableCollection<Fecha>(listaDate.OrderBy(i => i.fecha));
+                listaFecha.ItemsSource = listaDate;
+                //Animals = new ObservableCollection<string>(Animals.OrderBy(i => i));
+                listaDay = new ObservableCollection<Comida>(fecha.Comidas);
+                listaDia.ItemsSource = listaDay;
+                GuardarArchivoTmp();
+            }
         }
 
         private void listaFecha_SelectionChanged(object sender, SelectionChangedEventArgs e)

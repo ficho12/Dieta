@@ -37,9 +37,7 @@
             </MenuItem>
         </Menu>
 
-        <Button Content="Ver Gráfica Global" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="268,2,372,2" Click="VerTodo_Click" Grid.Column="1" Grid.ColumnSpan="2"/>
-        <Button Name="BotonIzq" Content="Izq" Grid.Row="1" Margin="27,2,328,2" Click="BotonIzq_Click" Grid.Column="2"/>
-        <Button Name="BotonDch" Content="Dch" Margin="72,2,284,2" Click="BotonDch_Click" Grid.Column="2" Grid.Row="1"/>
+        <Button Content="Ver Gráfica Global" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Click="VerTodo_Click" Grid.Column="1" Grid.ColumnSpan="2"/>
 
         <Viewbox x:Name="ViewBox" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Margin="0,0,0,-19" IsHitTestVisible="False" >
             <Grid>
