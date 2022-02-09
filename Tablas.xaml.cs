@@ -110,7 +110,6 @@ namespace Dieta
                 listaDate.Add(fecha);
                 listaDate = new ObservableCollection<Fecha>(listaDate.OrderBy(i => i.fecha));
                 listaFecha.ItemsSource = listaDate;
-                //Animals = new ObservableCollection<string>(Animals.OrderBy(i => i));
                 listaDay = new ObservableCollection<Comida>(fecha.Comidas);
                 listaDia.ItemsSource = listaDay;
                 GuardarArchivoTmp();
@@ -196,6 +195,11 @@ namespace Dieta
             BinarySerialization.WriteToBinaryFile(archivoTmp, new List<Fecha>(listaDate));
         }
 
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            pasarTabla(this, new TablaEventArgs(listaDate, 0)); //Muestra el principio de la lista
+        }
+
         private void CargarArchivoTmp(string s)
         {
             listaDate = new ObservableCollection<Fecha>(BinarySerialization.ReadFromBinaryFile<List<Fecha>>(s));
@@ -207,5 +211,6 @@ namespace Dieta
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
+
     }
 }

@@ -6,7 +6,8 @@
       xmlns:local="clr-namespace:Dieta"
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="600"
-      Title="Tablas">
+      Title="Tablas"
+      Closing="Window_Closing">
 
     <Grid>
         <Grid.RowDefinitions>
