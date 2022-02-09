@@ -30,7 +30,7 @@ namespace Dieta
         Tablas tb;
         ObservableCollection<Fecha> listaDate;
         String directorioTmp, archivoTmp, archivoActual;
-        int pos;
+        int pos, posComidas;
         bool cambioGrafica;
 
         public MainWindow()     // Añadir ventana que confirme que se ha cargado el último archivo temporal
@@ -94,9 +94,10 @@ namespace Dieta
         private void pasarTabla(object sender, TablaEventArgs e) //Meter indice al pasar la fecha hacer porcentajes y modificar el tamaño de las lineas
         {
             double[] calorias;
-            calorias = new double[7];
+            calorias = new double[8];
             double caloriasMax, division, resto;
             pos = e.pos;
+            posComidas = 0;
             listaDate = e.listaDate;
             List<Fecha> fecha = new List<Fecha>(listaDate.ToList());
 
@@ -169,7 +170,7 @@ namespace Dieta
 
             }
 
-            calorias = new double[7];
+            calorias = new double[8];
 
             for (int i = 0; i < 17; i++)
             {
@@ -253,6 +254,382 @@ namespace Dieta
                         }
                     }
                     
+                    dia.Content = fecha[pos + i].fecha.Day + "/" + fecha[pos + i].fecha.Month;
+                    dia.Visibility = Visibility.Visible;
+                }
+
+                if (i < 8)
+                {
+                    var numC = string.Format("NumCalDia{0}", 8 - i);
+                    var numCal = (Label)this.FindName(numC);
+
+                    if (i == 7)
+                        resto = 0;
+
+                    numCal.Content = resto;
+                    resto -= division;
+                }
+            }
+            canvas.Visibility = Visibility.Visible;
+        }
+
+        private void moverGraficoComidas(bool direccion)    // True == Dch, False == Izq
+        {
+            double[] calorias;
+            calorias = new double[8];
+            double caloriasMax, division, resto;
+
+            if(direccion)
+                posComidas += 1;
+            else if(!direccion && posComidas ==0)
+            {
+                MostrarCuadro("No se puede mover más a la izquierda, ya está en la posición inicial", "Error al mover Gráfico");
+                return;
+            }
+            else // !direccion
+            {
+                posComidas -= 1;
+            }
+
+            List<Fecha> fecha = new List<Fecha>(listaDate.ToList());
+
+            int numComidas = fecha[pos].Comidas.Count<Comida>() - posComidas;
+            int numFechas = fecha.Count() - pos;
+
+            eliminarLineas();
+
+            Debug.WriteLine("Pos: " + pos.ToString());
+            Debug.WriteLine("NumComidas: " + numComidas.ToString());
+            Debug.WriteLine("NumFechas: " + numFechas.ToString());
+            Debug.WriteLine("fechaCount: " + fecha.Count());
+
+            for (int i = 0; i < 8; i++)
+            {
+                var nC = string.Format("NombreComida{0}", i + 1);
+                var nombreComida = (Label)this.FindName(nC);
+
+                var l = string.Format("line{0}", i + 1);
+                var line = (Line)this.FindName(l);
+
+                if (i >= numComidas)
+                {
+                    nombreComida.Visibility = Visibility.Hidden;
+                    line.Visibility = Visibility.Hidden;
+
+                }
+                else
+                {
+                    //NombreComida1.Content = fecha[0].Comidas[0].comida;
+                    nombreComida.Content = fecha[pos].Comidas[i+posComidas].comida;
+                    Debug.WriteLine("i: " + i);
+
+                    //line.Content = fecha[i].Comidas[i].comida;
+                    calorias[i] = fecha[pos].Comidas[i+posComidas].calorias;
+                }
+            }
+
+            caloriasMax = calorias.Max();
+            division = caloriasMax / 7;
+            division = Math.Truncate(division);
+            resto = caloriasMax;
+
+            for (int i = 0; i < 8; i++)
+            {
+                if (i < numComidas)
+                {
+                    var l = string.Format("line{0}", i + 1);
+                    var line = (Line)this.FindName(l);
+
+                    var nC = string.Format("NombreComida{0}", i + 1);
+                    var nombreComida = (Label)this.FindName(nC);
+
+                    nombreComida.Visibility = Visibility.Visible;
+                    line.Visibility = Visibility.Visible;
+
+                    line.X1 = 14.36 - (calorias[i] / caloriasMax) * 14.34;      //Rango [14.34,0.2]
+
+                    Debug.WriteLine(i + " lineWidth: " + line.Width.ToString());
+
+                }
+
+                var numC = string.Format("NumCal{0}", 8 - i);
+                var numCal = (Label)this.FindName(numC);
+
+                if (i == 7)
+                    resto = 0;
+
+                numCal.Content = resto;
+                resto -= division;
+
+            }
+
+            /*
+
+            calorias = new double[8];
+
+            for (int i = 0; i < 17; i++)
+            {
+                var d = string.Format("Dia{0}", i + 1);
+                var dia = (Label)this.FindName(d);
+
+                var lD = string.Format("lineDia{0}", i + 1);
+                var lineDia = (Line)this.FindName(lD);
+
+                if (i >= numFechas)
+                {
+                    //Debug.WriteLine("1." + i + dia.ToString());
+                    dia.Visibility = Visibility.Hidden; //null reference(?)
+                    //Debug.WriteLine("2." + i + dia.ToString());
+                    lineDia.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    //NombreComida1.Content = fecha[0].Comidas[0].comida;
+
+                    calorias[i] = fecha[pos + i].totalCalorias;
+
+                    //line.Content = fecha[i].Comidas[i].comida;
+                    //calorias[i] = fecha[pos].Comidas[i].calorias;
+                }
+            }
+
+            caloriasMax = calorias.Max();
+            division = caloriasMax / 7;
+            division = Math.Truncate(division);
+            resto = caloriasMax;
+
+            Canvas canvas = (Canvas)this.FindName("CanvasDias");
+            Line[] linea;
+            linea = new Line[18];
+
+            for (int i = 0; i < 17; i++)
+            {
+
+                var d = string.Format("Dia{0}", i + 1);
+                var dia = (Label)this.FindName(d);
+
+                var lD = string.Format("lineDia{0}", i + 1);
+                var lineDia = (Line)this.FindName(lD);
+
+
+                if (i < numFechas)      //meter bucle con el for de arriba para crear y calcular el tamaño de las lineas, como se superponen hacer
+                {                       //en orden inverso ( empezar por la última, la linea definida en xaml )
+                    double restoCal = fecha[pos + i].totalCalorias;
+                    if (restoCal == 0)
+                    {
+                        lineDia.Visibility = Visibility.Hidden;
+                    }
+                    else
+                    {
+                        for (int j = fecha[pos + i].Comidas.Count(); j > 0; j--)          //Antes de empezar borrar lineas anteriores
+                        {
+                            if (j == fecha[pos + i].Comidas.Count())
+                            {
+                                Debug.WriteLine("pos " + pos + ", i " + i + ", comidasCount " + fecha[pos].Comidas.Count());
+                                lineDia.Visibility = Visibility.Visible;
+                                lineDia.Stroke = DevolverColor(j);
+                                lineDia.X1 = 14.36 - (fecha[pos + i].totalCalorias / caloriasMax) * 14.34;      //Rango [14.34,0.2]
+
+                                restoCal -= fecha[pos + i].Comidas[j - 1].calorias;
+                                Debug.WriteLine(i + " X1: " + lineDia.X1.ToString() + ", restoCal: " + restoCal);
+                            }
+                            else
+                            {
+                                linea[j - 1] = ElementClone<Line>(lineDia);
+                                linea[j - 1].Uid += "aBorrar";
+                                linea[j - 1].Name = string.Format("lineDia{0}_{0}", i + 1, j);
+                                linea[j - 1].Stroke = DevolverColor(j);
+                                linea[j - 1].Visibility = Visibility.Visible;
+                                linea[j - 1].X1 = 14.36 - (restoCal / caloriasMax) * 14.34;  //Rango [14.34,0.2]
+
+                                canvas.Children.Add(linea[j - 1]);
+                                restoCal -= fecha[pos + i].Comidas[j - 1].calorias;
+                                Debug.WriteLine(i + ", " + (j - 1) + " X1: " + linea[j - 1].X1.ToString() + ", restoCal: " + restoCal);
+                            }
+                        }
+                    }
+
+                    dia.Content = fecha[pos + i].fecha.Day + "/" + fecha[pos + i].fecha.Month;
+                    dia.Visibility = Visibility.Visible;
+                }
+
+                if (i < 8)
+                {
+                    var numC = string.Format("NumCalDia{0}", 8 - i);
+                    var numCal = (Label)this.FindName(numC);
+
+                    if (i == 7)
+                        resto = 0;
+
+                    numCal.Content = resto;
+                    resto -= division;
+                }
+            }
+            canvas.Visibility = Visibility.Visible;*/
+        }
+
+        private void moverGraficoDias(object sender, TablaEventArgs e) //Meter indice al pasar la fecha hacer porcentajes y modificar el tamaño de las lineas
+        {
+            double[] calorias;
+            calorias = new double[8];
+            double caloriasMax, division, resto;
+            pos = e.pos;
+            listaDate = e.listaDate;
+            List<Fecha> fecha = new List<Fecha>(listaDate.ToList());
+
+            int numComidas = fecha[pos].Comidas.Count<Comida>();
+            int numFechas = fecha.Count() - pos;
+
+            eliminarLineas();
+            Debug.WriteLine("Pos: " + pos.ToString());
+            Debug.WriteLine("NumComidas: " + numComidas.ToString());
+            Debug.WriteLine("NumFechas: " + numFechas.ToString());
+            Debug.WriteLine("fechaCount: " + fecha.Count());
+
+            for (int i = 0; i < 8; i++)
+            {
+                var nC = string.Format("NombreComida{0}", i + 1);
+                var nombreComida = (Label)this.FindName(nC);
+
+                var l = string.Format("line{0}", i + 1);
+                var line = (Line)this.FindName(l);
+
+                if (i >= numComidas)
+                {
+                    nombreComida.Visibility = Visibility.Hidden;
+                    line.Visibility = Visibility.Hidden;
+
+                }
+                else
+                {
+                    //NombreComida1.Content = fecha[0].Comidas[0].comida;
+                    nombreComida.Content = fecha[pos].Comidas[i].comida;
+                    Debug.WriteLine("i: " + i);
+
+                    //line.Content = fecha[i].Comidas[i].comida;
+                    calorias[i] = fecha[pos].Comidas[i].calorias;
+                }
+            }
+
+            caloriasMax = calorias.Max();
+            division = caloriasMax / 7;
+            division = Math.Truncate(division);
+            resto = caloriasMax;
+
+            for (int i = 0; i < 8; i++)
+            {
+                if (i < numComidas)
+                {
+                    var l = string.Format("line{0}", i + 1);
+                    var line = (Line)this.FindName(l);
+
+                    var nC = string.Format("NombreComida{0}", i + 1);
+                    var nombreComida = (Label)this.FindName(nC);
+
+                    nombreComida.Visibility = Visibility.Visible;
+                    line.Visibility = Visibility.Visible;
+
+                    line.X1 = 14.36 - (calorias[i] / caloriasMax) * 14.34;      //Rango [14.34,0.2]
+
+                    Debug.WriteLine(i + " lineWidth: " + line.Width.ToString());
+
+                }
+
+                var numC = string.Format("NumCal{0}", 8 - i);
+                var numCal = (Label)this.FindName(numC);
+
+                if (i == 7)
+                    resto = 0;
+
+                numCal.Content = resto;
+                resto -= division;
+
+            }
+
+            calorias = new double[8];
+
+            for (int i = 0; i < 17; i++)
+            {
+                var d = string.Format("Dia{0}", i + 1);
+                var dia = (Label)this.FindName(d);
+
+                var lD = string.Format("lineDia{0}", i + 1);
+                var lineDia = (Line)this.FindName(lD);
+
+                if (i >= numFechas)
+                {
+                    //Debug.WriteLine("1." + i + dia.ToString());
+                    dia.Visibility = Visibility.Hidden; //null reference(?)
+                    //Debug.WriteLine("2." + i + dia.ToString());
+                    lineDia.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    //NombreComida1.Content = fecha[0].Comidas[0].comida;
+
+                    calorias[i] = fecha[pos + i].totalCalorias;
+
+                    //line.Content = fecha[i].Comidas[i].comida;
+                    //calorias[i] = fecha[pos].Comidas[i].calorias;
+                }
+            }
+
+            caloriasMax = calorias.Max();
+            division = caloriasMax / 7;
+            division = Math.Truncate(division);
+            resto = caloriasMax;
+
+            Canvas canvas = (Canvas)this.FindName("CanvasDias");
+            Line[] linea;
+            linea = new Line[18];
+
+            for (int i = 0; i < 17; i++)
+            {
+
+                var d = string.Format("Dia{0}", i + 1);
+                var dia = (Label)this.FindName(d);
+
+                var lD = string.Format("lineDia{0}", i + 1);
+                var lineDia = (Line)this.FindName(lD);
+
+
+                if (i < numFechas)      //meter bucle con el for de arriba para crear y calcular el tamaño de las lineas, como se superponen hacer
+                {                       //en orden inverso ( empezar por la última, la linea definida en xaml )
+                    double restoCal = fecha[pos + i].totalCalorias;
+                    if (restoCal == 0)
+                    {
+                        lineDia.Visibility = Visibility.Hidden;
+                    }
+                    else
+                    {
+                        for (int j = fecha[pos + i].Comidas.Count(); j > 0; j--)          //Antes de empezar borrar lineas anteriores
+                        {
+                            if (j == fecha[pos + i].Comidas.Count())
+                            {
+                                Debug.WriteLine("pos " + pos + ", i " + i + ", comidasCount " + fecha[pos].Comidas.Count());
+                                lineDia.Visibility = Visibility.Visible;
+                                lineDia.Stroke = DevolverColor(j);
+                                lineDia.X1 = 14.36 - (fecha[pos + i].totalCalorias / caloriasMax) * 14.34;      //Rango [14.34,0.2]
+
+                                restoCal -= fecha[pos + i].Comidas[j - 1].calorias;
+                                Debug.WriteLine(i + " X1: " + lineDia.X1.ToString() + ", restoCal: " + restoCal);
+                            }
+                            else
+                            {
+                                linea[j - 1] = ElementClone<Line>(lineDia);
+                                linea[j - 1].Uid += "aBorrar";
+                                linea[j - 1].Name = string.Format("lineDia{0}_{0}", i + 1, j);
+                                linea[j - 1].Stroke = DevolverColor(j);
+                                linea[j - 1].Visibility = Visibility.Visible;
+                                linea[j - 1].X1 = 14.36 - (restoCal / caloriasMax) * 14.34;  //Rango [14.34,0.2]
+
+                                canvas.Children.Add(linea[j - 1]);
+                                restoCal -= fecha[pos + i].Comidas[j - 1].calorias;
+                                Debug.WriteLine(i + ", " + (j - 1) + " X1: " + linea[j - 1].X1.ToString() + ", restoCal: " + restoCal);
+                            }
+                        }
+                    }
+
                     dia.Content = fecha[pos + i].fecha.Day + "/" + fecha[pos + i].fecha.Month;
                     dia.Visibility = Visibility.Visible;
                 }
@@ -364,12 +741,12 @@ namespace Dieta
 
         private void BotonIzq_Click(object sender, RoutedEventArgs e)
         {
-
+            moverGraficoComidas(false);
         }
 
         private void BotonDch_Click(object sender, RoutedEventArgs e)
         {
-
+            moverGraficoComidas(true);
         }
 
         private void CargarArchivoTmp(string s)
@@ -390,7 +767,7 @@ namespace Dieta
                 if (s >= 15)
                     s -= 14;
             } while (s >= 15);
-
+            
             switch(s)
             {
                 case 1:     return Brushes.Red;
