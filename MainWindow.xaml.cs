@@ -17,6 +17,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using Microsoft.Win32;
 using System.Windows.Markup;
+using System.Windows.Media.Animation;
 
 namespace Dieta
 {
@@ -416,75 +417,6 @@ namespace Dieta
 
             eliminarLineas();
 
-            /*
-            Debug.WriteLine("Pos: " + pos.ToString());
-            Debug.WriteLine("NumComidas: " + numComidas.ToString());
-            Debug.WriteLine("NumFechas: " + numFechas.ToString());
-            Debug.WriteLine("fechaCount: " + fecha.Count());
-
-            for (int i = 0; i < 8; i++)
-            {
-                var nC = string.Format("NombreComida{0}", i + 1);
-                var nombreComida = (Label)this.FindName(nC);
-
-                var l = string.Format("line{0}", i + 1);
-                var line = (Line)this.FindName(l);
-
-                if (i >= numComidas)
-                {
-                    nombreComida.Visibility = Visibility.Hidden;
-                    line.Visibility = Visibility.Hidden;
-
-                }
-                else
-                {
-                    //NombreComida1.Content = fecha[0].Comidas[0].comida;
-                    nombreComida.Content = fecha[pos].Comidas[i].comida;
-                    Debug.WriteLine("i: " + i);
-
-                    //line.Content = fecha[i].Comidas[i].comida;
-                    calorias[i] = fecha[pos].Comidas[i].calorias;
-                }
-            }
-
-            caloriasMax = calorias.Max();
-            division = caloriasMax / 7;
-            division = Math.Truncate(division);
-            resto = caloriasMax;
-
-            for (int i = 0; i < 8; i++)
-            {
-                if (i < numComidas)
-                {
-                    var l = string.Format("line{0}", i + 1);
-                    var line = (Line)this.FindName(l);
-
-                    var nC = string.Format("NombreComida{0}", i + 1);
-                    var nombreComida = (Label)this.FindName(nC);
-
-                    nombreComida.Visibility = Visibility.Visible;
-                    line.Visibility = Visibility.Visible;
-
-                    line.X1 = 14.36 - (calorias[i] / caloriasMax) * 14.34;      //Rango [14.34,0.2]
-
-                    Debug.WriteLine(i + " lineWidth: " + line.Width.ToString());
-
-                }
-
-                var numC = string.Format("NumCal{0}", 8 - i);
-                var numCal = (Label)this.FindName(numC);
-
-                if (i == 7)
-                    resto = 0;
-
-                numCal.Content = resto;
-                resto -= division;
-
-            }
-
-            calorias = new double[8];
-            */
-
             for (int i = 0; i < 17; i++)
             {
                 var d = string.Format("Dia{0}", i + 1);
@@ -544,9 +476,17 @@ namespace Dieta
                             if (j == fecha[pos + i].Comidas.Count())
                             {
                                 Debug.WriteLine("pos " + pos + ", i " + i + ", comidasCount " + fecha[pos].Comidas.Count());
-                                lineDia.Visibility = Visibility.Visible;
+                                //lineDia.Visibility = Visibility.Visible;
                                 lineDia.Stroke = DevolverColor(j);
-                                lineDia.X1 = 14.36 - (fecha[pos + i].totalCalorias / caloriasMax) * 14.34;      //Rango [14.34,0.2]
+                                //lineDia.X1 = 14.36 - (fecha[pos + i].totalCalorias / caloriasMax) * 14.34;      //Rango [14.34,0.2]
+
+                                //Animacion:
+                                Storyboard sb = new Storyboard();
+                                DoubleAnimation da = new DoubleAnimation(lineDia.X1, 14.36 - (fecha[pos + i].totalCalorias / caloriasMax) * 14.34, new Duration(new TimeSpan(0, 0, 1)));
+                                Storyboard.SetTargetProperty(da, new PropertyPath("(Line.X1)"));
+                                sb.Children.Add(da);
+                                lineDia.BeginStoryboard(sb);
+                                lineDia.Visibility = Visibility.Visible;
 
                                 restoCal -= fecha[pos + i].Comidas[j - 1].calorias;
                                 Debug.WriteLine(i + " X1: " + lineDia.X1.ToString() + ", restoCal: " + restoCal);
@@ -557,10 +497,19 @@ namespace Dieta
                                 linea[j - 1].Uid += "aBorrar";
                                 linea[j - 1].Name = string.Format("lineDia{0}_{0}", i + 1, j);
                                 linea[j - 1].Stroke = DevolverColor(j);
-                                linea[j - 1].Visibility = Visibility.Visible;
-                                linea[j - 1].X1 = 14.36 - (restoCal / caloriasMax) * 14.34;  //Rango [14.34,0.2]
+                                //linea[j - 1].Visibility = Visibility.Visible;
+                                //linea[j - 1].X1 = 14.36 - (restoCal / caloriasMax) * 14.34;  //Rango [14.34,0.2]
 
                                 canvas.Children.Add(linea[j - 1]);
+
+                                //Animacion:
+                                Storyboard sb = new Storyboard();
+                                DoubleAnimation da = new DoubleAnimation(linea[j-1].X1, 14.36 - (restoCal / caloriasMax) * 14.34, new Duration(new TimeSpan(0, 0, 1)));
+                                Storyboard.SetTargetProperty(da, new PropertyPath("(Line.X1)"));
+                                sb.Children.Add(da);
+                                linea[j-1].BeginStoryboard(sb);
+                                linea[j-1].Visibility = Visibility.Visible;
+
                                 restoCal -= fecha[pos + i].Comidas[j - 1].calorias;
                                 Debug.WriteLine(i + ", " + (j - 1) + " X1: " + linea[j - 1].X1.ToString() + ", restoCal: " + restoCal);
                             }
