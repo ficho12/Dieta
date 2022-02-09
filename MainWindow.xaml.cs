@@ -104,6 +104,22 @@ namespace Dieta
             int numComidas = fecha[pos].Comidas.Count<Comida>();
             int numFechas = fecha.Count() - pos;
 
+            var boton = (Button)this.FindName("DchComidas");
+            boton.IsEnabled = false;
+            boton.Visibility = Visibility.Hidden;
+
+            boton = (Button)this.FindName("IzqComidas");
+            boton.IsEnabled = false;
+            boton.Visibility = Visibility.Hidden;
+
+            boton = (Button)this.FindName("DchDias");
+            boton.Visibility = Visibility.Visible;
+            boton.IsEnabled = true;
+
+            boton = (Button)this.FindName("IzqDias");
+            boton.Visibility = Visibility.Visible;
+            boton.IsEnabled = true;
+
             eliminarLineas();
             Debug.WriteLine("Pos: " + pos.ToString());
             Debug.WriteLine("NumComidas: " + numComidas.ToString());
@@ -170,7 +186,7 @@ namespace Dieta
 
             }
 
-            calorias = new double[8];
+            calorias = new double[18];
 
             for (int i = 0; i < 17; i++)
             {
@@ -191,7 +207,7 @@ namespace Dieta
                 {
                     //NombreComida1.Content = fecha[0].Comidas[0].comida;
 
-                    calorias[i] = fecha[pos + i].totalCalorias;
+                    calorias[i] = fecha[pos + i].totalCalorias;         //IndexOutOfRange
 
                     //line.Content = fecha[i].Comidas[i].comida;
                     //calorias[i] = fecha[pos].Comidas[i].calorias;
@@ -367,127 +383,40 @@ namespace Dieta
 
                 numCal.Content = resto;
                 resto -= division;
-
             }
-
-            /*
-
-            calorias = new double[8];
-
-            for (int i = 0; i < 17; i++)
-            {
-                var d = string.Format("Dia{0}", i + 1);
-                var dia = (Label)this.FindName(d);
-
-                var lD = string.Format("lineDia{0}", i + 1);
-                var lineDia = (Line)this.FindName(lD);
-
-                if (i >= numFechas)
-                {
-                    //Debug.WriteLine("1." + i + dia.ToString());
-                    dia.Visibility = Visibility.Hidden; //null reference(?)
-                    //Debug.WriteLine("2." + i + dia.ToString());
-                    lineDia.Visibility = Visibility.Hidden;
-                }
-                else
-                {
-                    //NombreComida1.Content = fecha[0].Comidas[0].comida;
-
-                    calorias[i] = fecha[pos + i].totalCalorias;
-
-                    //line.Content = fecha[i].Comidas[i].comida;
-                    //calorias[i] = fecha[pos].Comidas[i].calorias;
-                }
-            }
-
-            caloriasMax = calorias.Max();
-            division = caloriasMax / 7;
-            division = Math.Truncate(division);
-            resto = caloriasMax;
-
-            Canvas canvas = (Canvas)this.FindName("CanvasDias");
-            Line[] linea;
-            linea = new Line[18];
-
-            for (int i = 0; i < 17; i++)
-            {
-
-                var d = string.Format("Dia{0}", i + 1);
-                var dia = (Label)this.FindName(d);
-
-                var lD = string.Format("lineDia{0}", i + 1);
-                var lineDia = (Line)this.FindName(lD);
-
-
-                if (i < numFechas)      //meter bucle con el for de arriba para crear y calcular el tamaño de las lineas, como se superponen hacer
-                {                       //en orden inverso ( empezar por la última, la linea definida en xaml )
-                    double restoCal = fecha[pos + i].totalCalorias;
-                    if (restoCal == 0)
-                    {
-                        lineDia.Visibility = Visibility.Hidden;
-                    }
-                    else
-                    {
-                        for (int j = fecha[pos + i].Comidas.Count(); j > 0; j--)          //Antes de empezar borrar lineas anteriores
-                        {
-                            if (j == fecha[pos + i].Comidas.Count())
-                            {
-                                Debug.WriteLine("pos " + pos + ", i " + i + ", comidasCount " + fecha[pos].Comidas.Count());
-                                lineDia.Visibility = Visibility.Visible;
-                                lineDia.Stroke = DevolverColor(j);
-                                lineDia.X1 = 14.36 - (fecha[pos + i].totalCalorias / caloriasMax) * 14.34;      //Rango [14.34,0.2]
-
-                                restoCal -= fecha[pos + i].Comidas[j - 1].calorias;
-                                Debug.WriteLine(i + " X1: " + lineDia.X1.ToString() + ", restoCal: " + restoCal);
-                            }
-                            else
-                            {
-                                linea[j - 1] = ElementClone<Line>(lineDia);
-                                linea[j - 1].Uid += "aBorrar";
-                                linea[j - 1].Name = string.Format("lineDia{0}_{0}", i + 1, j);
-                                linea[j - 1].Stroke = DevolverColor(j);
-                                linea[j - 1].Visibility = Visibility.Visible;
-                                linea[j - 1].X1 = 14.36 - (restoCal / caloriasMax) * 14.34;  //Rango [14.34,0.2]
-
-                                canvas.Children.Add(linea[j - 1]);
-                                restoCal -= fecha[pos + i].Comidas[j - 1].calorias;
-                                Debug.WriteLine(i + ", " + (j - 1) + " X1: " + linea[j - 1].X1.ToString() + ", restoCal: " + restoCal);
-                            }
-                        }
-                    }
-
-                    dia.Content = fecha[pos + i].fecha.Day + "/" + fecha[pos + i].fecha.Month;
-                    dia.Visibility = Visibility.Visible;
-                }
-
-                if (i < 8)
-                {
-                    var numC = string.Format("NumCalDia{0}", 8 - i);
-                    var numCal = (Label)this.FindName(numC);
-
-                    if (i == 7)
-                        resto = 0;
-
-                    numCal.Content = resto;
-                    resto -= division;
-                }
-            }
-            canvas.Visibility = Visibility.Visible;*/
         }
 
-        private void moverGraficoDias(object sender, TablaEventArgs e) //Meter indice al pasar la fecha hacer porcentajes y modificar el tamaño de las lineas
-        {
+        private void moverGraficoDias(bool direccion)    // True == Dch, False == Izq
+        { 
             double[] calorias;
-            calorias = new double[8];
+            calorias = new double[18];
             double caloriasMax, division, resto;
-            pos = e.pos;
-            listaDate = e.listaDate;
+           
             List<Fecha> fecha = new List<Fecha>(listaDate.ToList());
 
-            int numComidas = fecha[pos].Comidas.Count<Comida>();
+            if (direccion)
+                pos += 1;
+            else if (!direccion && pos == 0)
+            {
+                MostrarCuadro("No se puede mover más a la izquierda, ya está en la posición inicial", "Error al mover Gráfico");
+                return;
+            }
+            else // !direccion
+            {
+                pos -= 1;
+            }
+
             int numFechas = fecha.Count() - pos;
 
+            if (numFechas <= 0)
+            {
+                MostrarCuadro("No se puede mover más a la derecha, no hay comidas que mostrar", "Error al mover Gráfico");
+                return;
+            }
+
             eliminarLineas();
+
+            /*
             Debug.WriteLine("Pos: " + pos.ToString());
             Debug.WriteLine("NumComidas: " + numComidas.ToString());
             Debug.WriteLine("NumFechas: " + numFechas.ToString());
@@ -554,6 +483,7 @@ namespace Dieta
             }
 
             calorias = new double[8];
+            */
 
             for (int i = 0; i < 17; i++)
             {
@@ -731,7 +661,22 @@ namespace Dieta
         {
             var canvas = (Canvas)this.FindName("CanvasDias");
             canvas.Visibility = Visibility.Hidden;
-            //var canvas2 = (Canvas)this.FindName("CanvasComida");
+
+            var boton = (Button)this.FindName("DchComidas");
+            boton.Visibility = Visibility.Visible;
+            boton.IsEnabled = true;
+
+            boton = (Button)this.FindName("IzqComidas");
+            boton.Visibility = Visibility.Visible;
+            boton.IsEnabled = true;
+
+            boton = (Button)this.FindName("DchDias");
+            boton.Visibility = Visibility.Hidden;
+            boton.IsEnabled = false;
+
+            boton = (Button)this.FindName("IzqDias");
+            boton.Visibility = Visibility.Hidden;
+            boton.IsEnabled = false;
 
         }
         public void GuardarListaTemp(string s)
@@ -746,14 +691,23 @@ namespace Dieta
             BinarySerialization.WriteToBinaryFile(s, new List<Fecha>(listaDate));
         }
 
-        private void BotonIzq_Click(object sender, RoutedEventArgs e)
+        private void BotonIzqComidas_Click(object sender, RoutedEventArgs e)
         {
             moverGraficoComidas(false);
         }
 
-        private void BotonDch_Click(object sender, RoutedEventArgs e)
+        private void BotonDchComidas_Click(object sender, RoutedEventArgs e)
         {
             moverGraficoComidas(true);
+        }
+        private void BotonIzqDias_Click(object sender, RoutedEventArgs e)
+        {
+            moverGraficoDias(false);
+        }
+
+        private void BotonDchDias_Click(object sender, RoutedEventArgs e)
+        {
+            moverGraficoDias(true);
         }
 
         private void CargarArchivoTmp(string s)
