@@ -152,7 +152,8 @@ namespace Dieta
                     nombreComida.Visibility = Visibility.Visible;
                     line.Visibility = Visibility.Visible;
 
-                    line.Width = calorias[i] / caloriasMax * 14 + 9;  //9 = 0% 23 = 100% [14-23]
+                    line.X1 = 14.36 - (calorias[i] / caloriasMax) * 14.34;      //Rango [14.34,0.2]
+                    //line.Width = calorias[i] / caloriasMax * 14 + 9;  //9 = 0% 23 = 100% [14-23]
 
                     Debug.WriteLine(i + " lineWidth: " + line.Width.ToString());
 
