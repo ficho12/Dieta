@@ -100,6 +100,9 @@ namespace Dieta
         {
             Fecha fecha = new Fecha((DateTime)dp.SelectedDate);
             listaDate.Add(fecha);
+            listaDate = new ObservableCollection<Fecha>(listaDate.OrderBy(i => i.fecha));
+            listaFecha.ItemsSource = listaDate;
+            //Animals = new ObservableCollection<string>(Animals.OrderBy(i => i));
             listaDay = new ObservableCollection<Comida>(fecha.Comidas);
             listaDia.ItemsSource = listaDay;
             GuardarArchivoTmp();

@@ -385,7 +385,6 @@ namespace Dieta
                 if (s >= 15)
                     s -= 14;
             } while (s >= 15);
-            
 
             switch(s)
             {
