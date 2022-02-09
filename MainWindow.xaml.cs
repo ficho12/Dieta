@@ -294,13 +294,20 @@ namespace Dieta
             List<Fecha> fecha = new List<Fecha>(listaDate.ToList());
 
             int numComidas = fecha[pos].Comidas.Count<Comida>() - posComidas;
-            int numFechas = fecha.Count() - pos;
+
+            if(numComidas <= 0)
+            {
+                MostrarCuadro("No se puede mover más a la derecha, no hay comidas que mostrar", "Error al mover Gráfico");
+                return;
+            }
+
+            //int numFechas = fecha.Count() - pos;
 
             eliminarLineas();
 
             Debug.WriteLine("Pos: " + pos.ToString());
             Debug.WriteLine("NumComidas: " + numComidas.ToString());
-            Debug.WriteLine("NumFechas: " + numFechas.ToString());
+            //Debug.WriteLine("NumFechas: " + numFechas.ToString());
             Debug.WriteLine("fechaCount: " + fecha.Count());
 
             for (int i = 0; i < 8; i++)
