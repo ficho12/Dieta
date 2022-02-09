@@ -58,7 +58,6 @@ namespace Dieta
             {
                 listaDate = new ObservableCollection<Fecha>();
             }
-
         }
 
         private void VerTablas_Click(object sender, RoutedEventArgs e)
@@ -218,7 +217,7 @@ namespace Dieta
 
 
                 if (i < numFechas)      //meter bucle con el for de arriba para crear y calcular el tamaño de las lineas, como se superponen hacer
-                {                       //en orden inverso ( empezar por la última, la linea definida en xaml
+                {                       //en orden inverso ( empezar por la última, la linea definida en xaml )
                     double restoCal = fecha[pos + i].totalCalorias;
 
                     for (int j = fecha[pos+i].Comidas.Count(); j > 0; j--)          //Antes de empezar borrar lineas anteriores
@@ -235,8 +234,8 @@ namespace Dieta
                         }
                         else
                         {
-                            linea[j-1] = ElementClone<Line>(lineDia);           //  Parece que el error está aquí
-                            linea[j - 1].Uid += "aBorrar";
+                            linea[j-1] = ElementClone<Line>(lineDia);
+                            linea[j-1].Uid += "aBorrar";
                             linea[j-1].Name = string.Format("lineDia{0}_{0}", i + 1, j);
                             linea[j-1].Stroke = DevolverColor(j);
                             linea[j-1].Visibility = Visibility.Visible;
@@ -381,8 +380,12 @@ namespace Dieta
 
         private SolidColorBrush DevolverColor(int s)
         {
-            if (s >= 9)
-                s -= 8;
+            do
+            {
+                if (s >= 15)
+                    s -= 14;
+            } while (s >= 15);
+            
 
             switch(s)
             {
@@ -394,6 +397,14 @@ namespace Dieta
                 case 6:     return Brushes.Orange;
                 case 7:     return Brushes.Yellow;
                 case 8:     return Brushes.Purple;
+                case 9:     return Brushes.AliceBlue;
+                case 10:    return Brushes.Aquamarine;
+                case 11:    return Brushes.Chocolate;
+                case 12:    return Brushes.Crimson;
+                case 13:    return Brushes.DeepPink;
+                case 14:    return Brushes.Indigo;
+
+                default:    return Brushes.Black;
             }
 
             return Brushes.Black;
@@ -452,10 +463,6 @@ namespace Dieta
             {
                 canvas.Children.Remove(ui);
             }
-        }
-        public double reverseNumber(double num, double min, double max)
-        {
-            return (max + min) - num;
         }
     }
   }

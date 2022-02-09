@@ -44,87 +44,86 @@
         <Viewbox x:Name="ViewBox" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Margin="0,0,0,-19" IsHitTestVisible="False" >
             <Grid>
                 <Canvas x:Name="CanvasComida" Visibility="Visible" Background="Beige" VerticalAlignment="Center" HorizontalAlignment="Center" Height="17" Width="37">
-                    <Line x:Name="line1" Visibility="Visible" Stroke="Red" StrokeThickness="5" Fill="Blue" X1="9" X2="30" Canvas.Top="13" Canvas.Left="-6" Width="23">
+                    <Line x:Name="line1" Visibility="Visible" Stroke="Red" StrokeThickness="2" X1="0.2" X2="14.34" Width="16" Canvas.Top="1" Canvas.Left="5">
                         <Line.RenderTransform>
                             <TransformGroup>
-                                <ScaleTransform ScaleY="-1"/>
+                                <ScaleTransform/>
                                 <SkewTransform/>
-                                <RotateTransform Angle="-90"/>
-                                <TranslateTransform X="12.5" Y="11.5"/>
+                                <RotateTransform Angle="90"/>
+                                <TranslateTransform/>
                             </TransformGroup>
                         </Line.RenderTransform>
                     </Line>
-                    <Line x:Name="line2" Visibility="Visible" Stroke="Blue" StrokeThickness="5" Fill="Blue" X1="9" X2="30" Canvas.Top="13" Canvas.Left="-2" Width="23">
+                    <Line x:Name="line2" Visibility="Visible" Stroke="Blue" StrokeThickness="2" X1="0.2" X2="14.34" Width="16" Canvas.Top="1" Canvas.Left="9">
                         <Line.RenderTransform>
                             <TransformGroup>
-                                <ScaleTransform ScaleY="-1"/>
+                                <ScaleTransform/>
                                 <SkewTransform/>
-                                <RotateTransform Angle="-90"/>
-                                <TranslateTransform X="12.5" Y="11.5"/>
+                                <RotateTransform Angle="90"/>
+                                <TranslateTransform/>
                             </TransformGroup>
                         </Line.RenderTransform>
                     </Line>
-                    <Line x:Name="line3" Visibility="Visible" Stroke="Pink" StrokeThickness="5" Fill="Blue" X1="9" X2="30" Canvas.Top="13" Width="23" Canvas.Left="2">
+                    <Line x:Name="line3" Visibility="Visible" Stroke="Pink" StrokeThickness="2" X1="0.2" X2="14.34" Width="16" Canvas.Top="1" Canvas.Left="13">
                         <Line.RenderTransform>
                             <TransformGroup>
-                                <ScaleTransform ScaleY="-1"/>
+                                <ScaleTransform/>
                                 <SkewTransform/>
-                                <RotateTransform Angle="-90"/>
-                                <TranslateTransform X="12.5" Y="11.5"/>
+                                <RotateTransform Angle="90"/>
+                                <TranslateTransform/>
                             </TransformGroup>
                         </Line.RenderTransform>
                     </Line>
-                    <Line x:Name="line4" Visibility="Visible" Stroke="Gray" StrokeThickness="5" Fill="Blue" X1="9" X2="30" Canvas.Top="13" Canvas.Left="6" Width="23">
+                    <Line x:Name="line4" Visibility="Visible" Stroke="Gray" StrokeThickness="2" X1="0.2" X2="14.34" Width="16" Canvas.Top="1" Canvas.Left="17">
                         <Line.RenderTransform>
                             <TransformGroup>
-                                <ScaleTransform ScaleY="-1"/>
+                                <ScaleTransform/>
                                 <SkewTransform/>
-                                <RotateTransform Angle="-90"/>
-                                <TranslateTransform X="12.5" Y="11.5"/>
+                                <RotateTransform Angle="90"/>
+                                <TranslateTransform/>
                             </TransformGroup>
                         </Line.RenderTransform>
                     </Line>
-                    <Line x:Name="line5" Visibility="Visible" Stroke="Green" StrokeThickness="5" Fill="Blue" X1="9" X2="30" Canvas.Top="13" Canvas.Left="10" Width="23">
+                    <Line x:Name="line5" Visibility="Visible" Stroke="Green" StrokeThickness="2" X1="0.2" X2="14.34" Width="16" Canvas.Top="1" Canvas.Left="21">
                         <Line.RenderTransform>
                             <TransformGroup>
-                                <ScaleTransform ScaleY="-1"/>
+                                <ScaleTransform/>
                                 <SkewTransform/>
-                                <RotateTransform Angle="-90"/>
-                                <TranslateTransform X="12.5" Y="11.5"/>
+                                <RotateTransform Angle="90"/>
+                                <TranslateTransform/>
                             </TransformGroup>
                         </Line.RenderTransform>
                     </Line>
-                    <Line x:Name="line6" Visibility="Visible" Stroke="Orange" StrokeThickness="5" Fill="Blue" X1="9" X2="30" Canvas.Top="13" Canvas.Left="14" Width="23">
+                    <Line x:Name="line6" Visibility="Visible" Stroke="Orange" StrokeThickness="2" X1="0.2" X2="14.34" Width="16" Canvas.Top="1" Canvas.Left="25">
                         <Line.RenderTransform>
                             <TransformGroup>
-                                <ScaleTransform ScaleY="-1"/>
+                                <ScaleTransform/>
                                 <SkewTransform/>
-                                <RotateTransform Angle="-90"/>
-                                <TranslateTransform X="12.5" Y="11.5"/>
+                                <RotateTransform Angle="90"/>
+                                <TranslateTransform/>
                             </TransformGroup>
                         </Line.RenderTransform>
                     </Line>
-                    <Line x:Name="line7" Visibility="Visible" Stroke="Yellow" StrokeThickness="5" Fill="Blue" X1="9" X2="30" Canvas.Top="13" Canvas.Left="18" Width="23">
+                    <Line x:Name="line7" Visibility="Visible" Stroke="Yellow" StrokeThickness="2" X1="0.2" X2="14.34" Width="16" Canvas.Top="1" Canvas.Left="29">
                         <Line.RenderTransform>
                             <TransformGroup>
-                                <ScaleTransform ScaleY="-1"/>
+                                <ScaleTransform/>
                                 <SkewTransform/>
-                                <RotateTransform Angle="-90"/>
-                                <TranslateTransform X="12.5" Y="11.5"/>
+                                <RotateTransform Angle="90"/>
+                                <TranslateTransform/>
                             </TransformGroup>
                         </Line.RenderTransform>
                     </Line>
-                    <Line x:Name="line8" Visibility="Visible" Stroke="Purple" StrokeThickness="5" Fill="Blue" X1="9" X2="30" Canvas.Top="13" Canvas.Left="22" Width="23">
+                    <Line x:Name="line8" Visibility="Visible" Stroke="Purple" StrokeThickness="2" X1="0.2" X2="14.34" Width="16" Canvas.Top="1" Canvas.Left="33">
                         <Line.RenderTransform>
                             <TransformGroup>
-                                <ScaleTransform ScaleY="-1"/>
+                                <ScaleTransform/>
                                 <SkewTransform/>
-                                <RotateTransform Angle="-90"/>
-                                <TranslateTransform X="12.5" Y="11.5"/>
+                                <RotateTransform Angle="90"/>
+                                <TranslateTransform/>
                             </TransformGroup>
                         </Line.RenderTransform>
                     </Line>
-
                     <Line x:Name="guion1" Visibility="Visible" Stroke="Black" StrokeThickness="2" Fill="Black" X1="10" Canvas.Top="15" RenderTransformOrigin="0.5,0.5" Width="2" Canvas.Left="-4">
                         <Line.RenderTransform>
                             <TransformGroup>
@@ -227,8 +226,8 @@
 
                 </Canvas>
 
-                <Canvas x:Name="CanvasDias" Visibility="Visible" Background="Beige" VerticalAlignment="Center" HorizontalAlignment="Center" Height="17" Width="37">
-                    <Line x:Name="lineDia1" Visibility="Visible" Stroke="Red" StrokeThickness="1" X1="0.2" X2="14.34" Width="16" Canvas.Left="3" Canvas.Top="1">
+                <Canvas x:Name="CanvasDias" Visibility="Hidden" Background="Beige" VerticalAlignment="Center" HorizontalAlignment="Center" Height="17" Width="37">
+                    <Line x:Name="lineDia1" Visibility="Visible" Stroke="Red" StrokeThickness="1" X1="0.2" X2="14.34" Width="16" Canvas.Top="1" Canvas.Left="3">
                         <Line.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>
