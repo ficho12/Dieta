@@ -47,11 +47,12 @@ namespace Dieta
             }
 
             archivoTmp = directorioTmp + "\\tmpData.bin";
-            archivoActual = archivoTmp;
+            archivoActual = "0";
 
             if (File.Exists(archivoActual))
             {
-                CargarArchivoTmp(archivoActual);
+                CargarArchivoTmp(archivoTmp);
+                MostrarCuadro("Se ha cargado el archivo de autoguardado de la última sesión", "Autoguardado");
             }
             else
             {
@@ -65,13 +66,6 @@ namespace Dieta
             tb.Owner = this;
             tb.Show();
             tb.pasarTabla += pasarTabla;
-
-            /*
-            if (tablas.DialogResult == true)
-            {
-                Title = tablas.cadena;
-            }
-            */
         }
 
         private void pasarTabla(object sender, TablaEventArgs e) //Meter indice al pasar la fecha hacer porcentajes y modificar el tamaño de las lineas
@@ -571,25 +565,23 @@ namespace Dieta
             }
         }
 
-        private void GuardarTablas_Click(object sender, RoutedEventArgs e)      // Añadir ventana que confirme
+        private void GuardarTablas_Click(object sender, RoutedEventArgs e)
         {
-            GuardarArchivo(archivoActual);
+            if (archivoActual.Equals("0"))
+            {
+                MostrarCuadro("Seleccione un archivo sobre el que guardar primero\nusando la ventana Guardar como...", "Guardado fallido");
+            }
+            else
+            {
+                GuardarArchivo(archivoActual);
+                MostrarCuadro("Se ha guardado el archivo correctamente.", "Guardado exitoso");
+            }
         }
 
-        private void GuardarTablasComo_Click(object sender, RoutedEventArgs e)      // Añadir opcion cuando no se selecciona ninguna tabla
+        private void GuardarTablasComo_Click(object sender, RoutedEventArgs e)
         {
-            //var folderBrowserDialog1 = new FolderBrowserDialog();
-
-            // Show the FolderBrowserDialog.
-            //DialogResult result = ;
-            //if (DialogResult.OK == folderBrowserDialog1.ShowDialog())
-            //{
-            //string folderName = folderBrowserDialog1.SelectedPath;
-            //StreamWriter writer;
-
             SaveFileDialog dialog = new SaveFileDialog();
 
-            //var dialog = new SaveFileDialog();
             dialog.Filter = "cal files (*.cal)|*.cal|All files (*.*)|*.*";
             dialog.FilterIndex = 2;
             dialog.RestoreDirectory = true;
@@ -598,21 +590,12 @@ namespace Dieta
             {
                 archivoActual = dialog.FileName.ToString();
                 GuardarArchivo(archivoActual);
-                MostrarCuadro("Se ha guardado el archivo correctamente.", "Guardado exitosa");
+                MostrarCuadro("Se ha guardado el archivo correctamente.", "Guardado exitoso");
             }
             else
             {
                 MostrarCuadro("No se ha podido guardar el archivo con el nombre especificado.", "Error al seleccionar archivo a guardar");
             }
-
-
-
-            // writer = new StreamWriter(dialog.FileName.ToString());
-
-
-            // writer.WriteLine("prueba");
-            // writer.Close();
-
         }
 
         private void EliminarTablas_Click(object sender, RoutedEventArgs e)     // Añadir opcion cuando no se selecciona ninguna tabla
@@ -642,12 +625,6 @@ namespace Dieta
             boton.IsEnabled = false;
 
             //moverGraficoComidas(true);
-        }
-        public void GuardarListaTemp(string s)
-        {
-            Debug.WriteLine(s);
-
-            return;
         }
 
         private void GuardarArchivo(String s)
