@@ -59,14 +59,14 @@ namespace Dieta
         ObservableCollection<Fecha> listaDate;
         ObservableCollection<Comida> listaDay;
         public event TablaEventHandler pasarTabla;
-        public event CambiarGraficaEventHandler cambiarGrafica;
 
-        String directorioTmp, archivoTmp, archivoActual;
+        String archivoTmp, directorioTmp, archivoActual;
 
-        public Tablas()
+        public Tablas(ObservableCollection<Fecha> l)
         {
             InitializeComponent();
 
+            
 
             //listaDate = new ObservableCollection<Fecha>();
             //listaFecha.ItemsSource = listaDate;
@@ -79,7 +79,8 @@ namespace Dieta
             }
 
             archivoTmp = directorioTmp + "\\tmpData.bin";
-            archivoActual = archivoTmp;
+            
+            /*archivoActual = archivoTmp;
 
             if (File.Exists(archivoActual))
             {
@@ -90,30 +91,42 @@ namespace Dieta
                 listaDate = new ObservableCollection<Fecha>();
                 listaFecha.ItemsSource = listaDate;
             }
+            */
+            
 
-            if(cambiarGrafica != null)
-            {
-                cambiarGrafica(this, new CambiarGraficaEventArgs(true));
-            }
+            listaDate = l;
+
+            listaFecha.ItemsSource = listaDate;
+
+
         }
-        private void CrearTabla_Click(object sender, RoutedEventArgs e)
+        private void AnadirFecha_Click(object sender, RoutedEventArgs e)
         {
-            Fecha fecha = new Fecha((DateTime)dp.SelectedDate);
-
-            if (listaDate.Any(f => f.fecha == fecha.fecha)) //Ya existe la fecha, no se añade
+            if(dp.SelectedDate.HasValue)
             {
-                MessageBoxButton boton = MessageBoxButton.OK;
-                MessageBox.Show("Seleccione una fecha que no se encuentre en la lista", "Error al añadir fecha", boton);
+                Fecha fecha = new Fecha((DateTime)dp.SelectedDate);
+
+                if (listaDate.Any(f => f.fecha == fecha.fecha)) //Ya existe la fecha, no se añade
+                {
+                    MessageBoxButton boton = MessageBoxButton.OK;
+                    MessageBox.Show("Seleccione una fecha que no se encuentre en la lista", "Error al añadir fecha", boton);
+                }
+                else
+                {
+                    listaDate.Add(fecha);
+                    listaDate = new ObservableCollection<Fecha>(listaDate.OrderBy(i => i.fecha));
+                    listaFecha.ItemsSource = listaDate;
+                    listaDay = new ObservableCollection<Comida>(fecha.Comidas);
+                    listaDia.ItemsSource = listaDay;
+                    GuardarArchivoTmp();
+                }
             }
             else
             {
-                listaDate.Add(fecha);
-                listaDate = new ObservableCollection<Fecha>(listaDate.OrderBy(i => i.fecha));
-                listaFecha.ItemsSource = listaDate;
-                listaDay = new ObservableCollection<Comida>(fecha.Comidas);
-                listaDia.ItemsSource = listaDay;
-                GuardarArchivoTmp();
+                MessageBoxButton boton = MessageBoxButton.OK;
+                MessageBox.Show("Seleccione un día del calendario para añadirlo a la lista", "Error al añadir día", boton);
             }
+            
         }
 
         private void listaFecha_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -135,33 +148,40 @@ namespace Dieta
         private void AnadirComida_Click(object sender, RoutedEventArgs e)
         {
             Fecha fecha = (Fecha)(listaFecha.SelectedItem);
-
-            Comida comida = new Comida(COMIDA.Text,Convert.ToDouble(CALORIAS.Text));
-
             
-
-            if (listaDate.Remove(fecha))
+            if(COMIDA.Text.Length>1 && CALORIAS.Text.Length>1)
             {
-                fecha.Comidas.Add(comida);
-                fecha.totalCalorias += comida.calorias;
-                listaDay.Add(comida);
-                listaDate.Add(fecha);
-                //listaDia.ItemsSource = fecha.Comidas;
+                Comida comida = new Comida(COMIDA.Text, Convert.ToDouble(CALORIAS.Text));
 
-                if (pasarTabla != null)
+                if (listaDate.Remove(fecha))
                 {
-                    pasarTabla(this, new TablaEventArgs(listaDate, listaDate.IndexOf(fecha)));
+                    fecha.Comidas.Add(comida);
+                    fecha.totalCalorias += comida.calorias;
+                    listaDay.Add(comida);
+                    listaDate.Add(fecha);
+                    //listaDia.ItemsSource = fecha.Comidas;
+
+                    if (pasarTabla != null)
+                    {
+                        pasarTabla(this, new TablaEventArgs(listaDate, listaDate.IndexOf(fecha)));
+                    }
+
+                }
+                else
+                {
+                    //Error
                 }
 
+                listaFecha.SelectedItem = fecha;                                       // Arreglo de lo de arriba, hacer con el boton de añadir también
+
+                GuardarArchivoTmp();
             }
             else
             {
-                //Error
+                MessageBoxButton boton = MessageBoxButton.OK;
+                MessageBox.Show("Escriba el nombre de la comida y sus calorías en los recuadros\npara poder añadir una comida a la lista", "Error al añadir comida", boton);
             }
-
-            listaFecha.SelectedItem = fecha;                                       // Arreglo de lo de arriba, hacer con el boton de añadir también
-
-            GuardarArchivoTmp();
+           
         }
 
         private void EliminarFecha_Click(object sender, RoutedEventArgs e)
@@ -189,7 +209,6 @@ namespace Dieta
             listaFecha.SelectedItem = fecha;                                       // Arreglo de lo de arriba, hacer con el boton de añadir también
         }
 
-
         private void GuardarArchivoTmp()
         {
             BinarySerialization.WriteToBinaryFile(archivoTmp, new List<Fecha>(listaDate));
@@ -200,11 +219,13 @@ namespace Dieta
             pasarTabla(this, new TablaEventArgs(listaDate, 0)); //Muestra el principio de la lista
         }
 
+        /*
         private void CargarArchivoTmp(string s)
         {
             listaDate = new ObservableCollection<Fecha>(BinarySerialization.ReadFromBinaryFile<List<Fecha>>(s));
             listaFecha.ItemsSource = listaDate;
         }
+        */
 
         private void esNumero(object sender, TextCompositionEventArgs e)
         {
@@ -212,5 +233,20 @@ namespace Dieta
             e.Handled = regex.IsMatch(e.Text);
         }
 
+        private void COMIDA_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (COMIDA.Text.Length >= 1)
+                COMIDA_HINT.Visibility = Visibility.Hidden;
+            else
+                COMIDA_HINT.Visibility = Visibility.Visible;
+        }
+
+        private void CALORIAS_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (CALORIAS.Text.Length >= 1)
+                CALORIAS_HINT.Visibility = Visibility.Hidden;
+            else
+                CALORIAS_HINT.Visibility = Visibility.Visible;
+        }
     }
 }

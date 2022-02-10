@@ -216,7 +216,6 @@
                     <Label Name="NumCal7" Visibility="Visible" Content="0" Foreground="Black" Height="12" Canvas.Left="-3" Width="15" Canvas.Top="-2" FontSize="0.7" HorizontalContentAlignment="Left" />
                     <Label Name="NumCal8" Visibility="Visible" Content="0" Foreground="Black" Height="12" Canvas.Left="-3" Width="15" Canvas.Top="-4" FontSize="0.7" HorizontalContentAlignment="Left" />
 
-
                     <Label Name="NombreComida1" Visibility="Visible" Content="Comida1" Foreground="Black" Height="12" Canvas.Left="-2" Width="15" Canvas.Top="11" FontSize="0.8" HorizontalContentAlignment="Center" />
                     <Label Name="NombreComida2" Visibility="Visible" Content="Comida2" Foreground="Black" Height="12" Canvas.Left="2" Width="15" Canvas.Top="11" FontSize="0.8" HorizontalContentAlignment="Center" />
                     <Label Name="NombreComida3" Visibility="Visible" Content="Comida3" Foreground="Black" Height="12" Canvas.Left="6" Width="15" Canvas.Top="11" FontSize="0.8" HorizontalContentAlignment="Center" />
@@ -228,7 +227,7 @@
 
                 </Canvas>
 
-                <Canvas x:Name="CanvasDias" Visibility="Hidden" Background="Beige" VerticalAlignment="Center" HorizontalAlignment="Center" Height="17" Width="37">
+                <Canvas x:Name="CanvasDias" Visibility="Visible" Background="Beige" VerticalAlignment="Center" HorizontalAlignment="Center" Height="17" Width="37">
                     <Line x:Name="lineDia1" Visibility="Visible" Stroke="Red" StrokeThickness="1" X1="0.2" X2="14.34" Width="16" Canvas.Top="1" Canvas.Left="3">
                         <Line.RenderTransform>
                             <TransformGroup>
@@ -490,7 +489,6 @@
                     <Label Name="NumCalDia7" Visibility="Visible" Content="0" Foreground="Black" Height="12" Canvas.Left="-4" Width="15" Canvas.Top="-2" FontSize="0.6" HorizontalContentAlignment="Left" />
                     <Label Name="NumCalDia8" Visibility="Visible" Content="0" Foreground="Black" Height="12" Canvas.Left="-4" Width="15" Canvas.Top="-4" FontSize="0.6" HorizontalContentAlignment="Left" />
 
-
                     <Label Name="Dia1" Visibility="Visible" Content="17/06" Foreground="Black" Height="12" Canvas.Left="-5" Width="15" Canvas.Top="11" FontSize="0.6" HorizontalContentAlignment="Center" />
                     <Label Name="Dia2" Visibility="Visible" Content="17/06" Foreground="Black" Height="12" Canvas.Left="-3" Width="15" Canvas.Top="11" FontSize="0.6" HorizontalContentAlignment="Center" />
                     <Label Name="Dia3" Visibility="Visible" Content="17/06" Foreground="Black" Height="12" Canvas.Left="-1" Width="15" Canvas.Top="11" FontSize="0.6" HorizontalContentAlignment="Center" />
@@ -511,8 +509,5 @@
                 </Canvas>
             </Grid>
         </Viewbox>
-
-
     </Grid>
-
 </Window>
