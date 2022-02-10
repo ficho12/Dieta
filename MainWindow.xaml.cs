@@ -66,7 +66,7 @@ namespace Dieta
             tb.pasarTabla += pasarTabla;
         }
 
-        private void pasarTabla(object sender, TablaEventArgs e) //Meter indice al pasar la fecha hacer porcentajes y modificar el tamaño de las lineas
+        private void pasarTabla(object sender, TablaEventArgs e)
         {
             double[] calorias;
             calorias = new double[8];
@@ -99,10 +99,6 @@ namespace Dieta
             boton.IsEnabled = false;
 
             eliminarLineas();
-            Debug.WriteLine("Pos: " + pos.ToString());
-            Debug.WriteLine("NumComidas: " + numComidas.ToString());
-            Debug.WriteLine("NumFechas: " + numFechas.ToString());
-            Debug.WriteLine("fechaCount: " + fecha.Count());
 
             for (int i = 0; i < 8; i++)
             {
@@ -116,15 +112,10 @@ namespace Dieta
                 {
                     nombreComida.Visibility = Visibility.Hidden;
                     line.Visibility = Visibility.Hidden;
-
                 }
                 else
                 {
-                    //NombreComida1.Content = fecha[0].Comidas[0].comida;
                     nombreComida.Content = fecha[pos].Comidas[i].comida;
-                    Debug.WriteLine("i: " + i);
-
-                    //line.Content = fecha[i].Comidas[i].comida;
                     calorias[i] = fecha[pos].Comidas[i].calorias;
                 }
             }
@@ -145,12 +136,9 @@ namespace Dieta
                     var nombreComida = (Label)this.FindName(nC);
 
                     nombreComida.Visibility = Visibility.Visible;
-                    //line.Visibility = Visibility.Visible;
-
-                    //line.X1 = 14.36 - (calorias[i] / caloriasMax) * 14.34;      //Rango [14.34,0.2]
 
                     //Animacion:
-                    Storyboard sb = new Storyboard();
+                    Storyboard sb = new Storyboard();        //Rango [14.34,0.2]
                     DoubleAnimation da = new DoubleAnimation(line.X1, 14.36 - (calorias[i] / caloriasMax) * 14.34, new Duration(new TimeSpan(0, 0, 1)));
                     Storyboard.SetTargetProperty(da, new PropertyPath("(Line.X1)"));
                     sb.Children.Add(da);
@@ -184,19 +172,12 @@ namespace Dieta
 
                 if (i >= numFechas)
                 {
-                    //Debug.WriteLine("1." + i + dia.ToString());
-                    dia.Visibility = Visibility.Hidden; //null reference(?)
-                    //Debug.WriteLine("2." + i + dia.ToString());
+                    dia.Visibility = Visibility.Hidden;
                     lineDia.Visibility = Visibility.Hidden;
                 }
                 else
                 {
-                    //NombreComida1.Content = fecha[0].Comidas[0].comida;
-
-                    calorias[i] = fecha[pos + i].totalCalorias;         //IndexOutOfRange
-
-                    //line.Content = fecha[i].Comidas[i].comida;
-                    //calorias[i] = fecha[pos].Comidas[i].calorias;
+                    calorias[i] = fecha[pos + i].totalCalorias;
                 }
             }
 
@@ -211,13 +192,11 @@ namespace Dieta
 
             for (int i = 0; i < 17; i++)
             {
-
                 var d = string.Format("Dia{0}", i + 1);
                 var dia = (Label)this.FindName(d);
 
                 var lD = string.Format("lineDia{0}", i + 1);
                 var lineDia = (Line)this.FindName(lD);
-
 
                 if (i < numFechas)      //meter bucle con el for de arriba para crear y calcular el tamaño de las lineas, como se superponen hacer
                 {                       //en orden inverso ( empezar por la última, la linea definida en xaml )
@@ -233,12 +212,10 @@ namespace Dieta
                             if (j == fecha[pos + i].Comidas.Count())
                             {
                                 Debug.WriteLine("pos " + pos + ", i " + i + ", comidasCount " + fecha[pos].Comidas.Count());
-                                //lineDia.Visibility = Visibility.Visible;
                                 lineDia.Stroke = DevolverColor(j);
-                                //lineDia.X1 = 14.36 - (fecha[pos + i].totalCalorias / caloriasMax) * 14.34;      //Rango [14.34,0.2]
 
                                 //Animacion:
-                                Storyboard sb = new Storyboard();
+                                Storyboard sb = new Storyboard();           //Rango [14.34,0.2]
                                 DoubleAnimation da = new DoubleAnimation(lineDia.X1, 14.36 - (fecha[pos + i].totalCalorias / caloriasMax) * 14.34, new Duration(new TimeSpan(0, 0, 1)));
                                 Storyboard.SetTargetProperty(da, new PropertyPath("(Line.X1)"));
                                 sb.Children.Add(da);
@@ -254,11 +231,9 @@ namespace Dieta
                                 linea[j - 1].Uid += "aBorrar";
                                 linea[j - 1].Name = string.Format("lineDia{0}_{0}", i + 1, j);
                                 linea[j - 1].Stroke = DevolverColor(j);
-                                //linea[j - 1].Visibility = Visibility.Visible;
-                                //linea[j - 1].X1 = 14.36 - (restoCal / caloriasMax) * 14.34;  //Rango [14.34,0.2]
 
                                 //Animacion:
-                                Storyboard sb = new Storyboard();
+                                Storyboard sb = new Storyboard();                //Rango [14.34,0.2]
                                 DoubleAnimation da = new DoubleAnimation(linea[j - 1].X1, 14.36 - (restoCal / caloriasMax) * 14.34, new Duration(new TimeSpan(0, 0, 1)));
                                 Storyboard.SetTargetProperty(da, new PropertyPath("(Line.X1)"));
                                 sb.Children.Add(da);
@@ -319,14 +294,7 @@ namespace Dieta
                 return;
             }
 
-            //int numFechas = fecha.Count() - pos;
-
             eliminarLineas();
-
-            Debug.WriteLine("Pos: " + pos.ToString());
-            Debug.WriteLine("NumComidas: " + numComidas.ToString());
-            //Debug.WriteLine("NumFechas: " + numFechas.ToString());
-            Debug.WriteLine("fechaCount: " + fecha.Count());
 
             for (int i = 0; i < 8; i++)
             {
@@ -340,15 +308,10 @@ namespace Dieta
                 {
                     nombreComida.Visibility = Visibility.Hidden;
                     line.Visibility = Visibility.Hidden;
-
                 }
                 else
                 {
-                    //NombreComida1.Content = fecha[0].Comidas[0].comida;
                     nombreComida.Content = fecha[pos].Comidas[i+posComidas].comida;
-                    Debug.WriteLine("i: " + i);
-
-                    //line.Content = fecha[i].Comidas[i].comida;
                     calorias[i] = fecha[pos].Comidas[i+posComidas].calorias;
                 }
             }
@@ -369,12 +332,9 @@ namespace Dieta
                     var nombreComida = (Label)this.FindName(nC);
 
                     nombreComida.Visibility = Visibility.Visible;
-                    //line.Visibility = Visibility.Visible;
-
-                    //line.X1 = 14.36 - (calorias[i] / caloriasMax) * 14.34;      //Rango [14.34,0.2]
 
                     //Animacion:
-                    Storyboard sb = new Storyboard();
+                    Storyboard sb = new Storyboard();        //Rango [14.34,0.2]
                     DoubleAnimation da = new DoubleAnimation(line.X1, 14.36 - (calorias[i] / caloriasMax) * 14.34, new Duration(new TimeSpan(0, 0, 1)));
                     Storyboard.SetTargetProperty(da, new PropertyPath("(Line.X1)"));
                     sb.Children.Add(da);
@@ -436,19 +396,12 @@ namespace Dieta
 
                 if (i >= numFechas)
                 {
-                    //Debug.WriteLine("1." + i + dia.ToString());
-                    dia.Visibility = Visibility.Hidden; //null reference(?)
-                    //Debug.WriteLine("2." + i + dia.ToString());
+                    dia.Visibility = Visibility.Hidden;
                     lineDia.Visibility = Visibility.Hidden;
                 }
                 else
                 {
-                    //NombreComida1.Content = fecha[0].Comidas[0].comida;
-
                     calorias[i] = fecha[pos + i].totalCalorias;
-
-                    //line.Content = fecha[i].Comidas[i].comida;
-                    //calorias[i] = fecha[pos].Comidas[i].calorias;
                 }
             }
 
@@ -485,12 +438,10 @@ namespace Dieta
                             if (j == fecha[pos + i].Comidas.Count())
                             {
                                 Debug.WriteLine("pos " + pos + ", i " + i + ", comidasCount " + fecha[pos].Comidas.Count());
-                                //lineDia.Visibility = Visibility.Visible;
                                 lineDia.Stroke = DevolverColor(j);
-                                //lineDia.X1 = 14.36 - (fecha[pos + i].totalCalorias / caloriasMax) * 14.34;      //Rango [14.34,0.2]
 
                                 //Animacion:
-                                Storyboard sb = new Storyboard();
+                                Storyboard sb = new Storyboard();           //Rango [14.34,0.2]
                                 DoubleAnimation da = new DoubleAnimation(lineDia.X1, 14.36 - (fecha[pos + i].totalCalorias / caloriasMax) * 14.34, new Duration(new TimeSpan(0, 0, 1)));
                                 Storyboard.SetTargetProperty(da, new PropertyPath("(Line.X1)"));
                                 sb.Children.Add(da);
@@ -506,8 +457,6 @@ namespace Dieta
                                 linea[j - 1].Uid += "aBorrar";
                                 linea[j - 1].Name = string.Format("lineDia{0}_{0}", i + 1, j);
                                 linea[j - 1].Stroke = DevolverColor(j);
-                                //linea[j - 1].Visibility = Visibility.Visible;
-                                //linea[j - 1].X1 = 14.36 - (restoCal / caloriasMax) * 14.34;  //Rango [14.34,0.2]
 
                                 canvas.Children.Add(linea[j - 1]);
 
@@ -543,7 +492,7 @@ namespace Dieta
             }
             canvas.Visibility = Visibility.Visible;
         }
-        private void NuevaTabla_Click(object sender, RoutedEventArgs e)       // Añadir opcion cuando no se selecciona ninguna tabla
+        private void NuevaTabla_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult resultado;
             MessageBoxButton botones = MessageBoxButton.OKCancel;
@@ -600,7 +549,7 @@ namespace Dieta
             }
         }
 
-        private void CargarTablas_Click(object sender, RoutedEventArgs e)       // Añadir opcion cuando no se selecciona ninguna tabla
+        private void CargarTablas_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult resultado;
             MessageBoxButton botones = MessageBoxButton.OKCancel;
@@ -675,11 +624,6 @@ namespace Dieta
             }
         }
 
-        private void EliminarTablas_Click(object sender, RoutedEventArgs e)     // Añadir opcion cuando no se selecciona ninguna tabla
-        {
-
-        }
-
         private void VerTodo_Click(object sender, RoutedEventArgs e)
         {
             var canvas = (Canvas)this.FindName("CanvasComida");
@@ -702,8 +646,6 @@ namespace Dieta
             boton = (Button)this.FindName("IzqDias");
             boton.Visibility = Visibility.Visible;
             boton.IsEnabled = true;
-
-            //moverGraficoComidas(true);
         }
 
         private void GuardarArchivo(String s)

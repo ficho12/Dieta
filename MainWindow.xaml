@@ -34,7 +34,6 @@
                 <MenuItem Header="Guardar Tablas" Click="GuardarTablas_Click"/>
                 <MenuItem Header="Guardar Tablas Como..." Click="GuardarTablasComo_Click"/>
                 <MenuItem Header="Cargar Tablas" Click="CargarTablas_Click"/>
-                <MenuItem Header="Eliminar Tablas" Click="EliminarTablas_Click"/>
             </MenuItem>
         </Menu>
 

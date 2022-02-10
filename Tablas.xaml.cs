@@ -60,16 +60,11 @@ namespace Dieta
         ObservableCollection<Comida> listaDay;
         public event TablaEventHandler pasarTabla;
 
-        String archivoTmp, directorioTmp, archivoActual;
+        String archivoTmp, directorioTmp;
 
         public Tablas(ObservableCollection<Fecha> l)
         {
             InitializeComponent();
-
-            
-
-            //listaDate = new ObservableCollection<Fecha>();
-            //listaFecha.ItemsSource = listaDate;
 
             directorioTmp = Directory.GetCurrentDirectory() + "\\saves";
 
@@ -79,26 +74,9 @@ namespace Dieta
             }
 
             archivoTmp = directorioTmp + "\\tmpData.bin";
-            
-            /*archivoActual = archivoTmp;
-
-            if (File.Exists(archivoActual))
-            {
-                CargarArchivoTmp(archivoActual);
-            }
-            else
-            {
-                listaDate = new ObservableCollection<Fecha>();
-                listaFecha.ItemsSource = listaDate;
-            }
-            */
-            
-
+           
             listaDate = l;
-
             listaFecha.ItemsSource = listaDate;
-
-
         }
         private void AnadirFecha_Click(object sender, RoutedEventArgs e)
         {
@@ -167,10 +145,6 @@ namespace Dieta
                     }
 
                 }
-                else
-                {
-                    //Error
-                }
 
                 listaFecha.SelectedItem = fecha;                                       // Arreglo de lo de arriba, hacer con el boton de añadir también
 
@@ -202,7 +176,6 @@ namespace Dieta
                 fecha.Comidas.Remove((Comida)(listaDia.SelectedItem));
                 listaDate.Add(fecha);
                 listaDay.Remove((Comida)(listaDia.SelectedItem));
-                //listaDia.ItemsSource = fecha.Comidas;
                 GuardarArchivoTmp();
             }
 
@@ -218,14 +191,6 @@ namespace Dieta
         {
             pasarTabla(this, new TablaEventArgs(listaDate, 0)); //Muestra el principio de la lista
         }
-
-        /*
-        private void CargarArchivoTmp(string s)
-        {
-            listaDate = new ObservableCollection<Fecha>(BinarySerialization.ReadFromBinaryFile<List<Fecha>>(s));
-            listaFecha.ItemsSource = listaDate;
-        }
-        */
 
         private void esNumero(object sender, TextCompositionEventArgs e)
         {
