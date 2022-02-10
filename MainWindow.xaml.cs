@@ -27,7 +27,6 @@ namespace Dieta
 
     public partial class MainWindow : Window
     {
-
         Tablas tb;
         ObservableCollection<Fecha> listaDate;
         string directorioTmp, archivoTmp, archivoActual;
@@ -80,21 +79,24 @@ namespace Dieta
             int numComidas = fecha[pos].Comidas.Count<Comida>();
             int numFechas = fecha.Count() - pos;
 
+            var c = (Canvas)this.FindName("CanvasComida");
+            c.Visibility = Visibility.Visible;
+
             var boton = (Button)this.FindName("DchComidas");
-            boton.IsEnabled = false;
-            boton.Visibility = Visibility.Hidden;
+            boton.IsEnabled = true;
+            boton.Visibility = Visibility.Visible;
 
             boton = (Button)this.FindName("IzqComidas");
-            boton.IsEnabled = false;
-            boton.Visibility = Visibility.Hidden;
+            boton.IsEnabled = true;
+            boton.Visibility = Visibility.Visible;
 
             boton = (Button)this.FindName("DchDias");
-            boton.Visibility = Visibility.Visible;
-            boton.IsEnabled = true;
+            boton.Visibility = Visibility.Hidden;
+            boton.IsEnabled = false;
 
             boton = (Button)this.FindName("IzqDias");
-            boton.Visibility = Visibility.Visible;
-            boton.IsEnabled = true;
+            boton.Visibility = Visibility.Hidden;
+            boton.IsEnabled = false;
 
             eliminarLineas();
             Debug.WriteLine("Pos: " + pos.ToString());
@@ -286,7 +288,7 @@ namespace Dieta
                     resto -= division;
                 }
             }
-            canvas.Visibility = Visibility.Visible;
+            canvas.Visibility = Visibility.Hidden;
         }
 
         private void moverGraficoComidas(bool direccion)    // True == Dch, False == Izq
@@ -680,24 +682,26 @@ namespace Dieta
 
         private void VerTodo_Click(object sender, RoutedEventArgs e)
         {
-            var canvas = (Canvas)this.FindName("CanvasDias");
+            var canvas = (Canvas)this.FindName("CanvasComida");
             canvas.Visibility = Visibility.Hidden;
+            canvas = (Canvas)this.FindName("CanvasDias");
+            canvas.Visibility = Visibility.Visible;
 
             var boton = (Button)this.FindName("DchComidas");
-            boton.Visibility = Visibility.Visible;
-            boton.IsEnabled = true;
+            boton.Visibility = Visibility.Hidden;
+            boton.IsEnabled = false;
 
             boton = (Button)this.FindName("IzqComidas");
+            boton.Visibility = Visibility.Hidden;
+            boton.IsEnabled = false;
+
+            boton = (Button)this.FindName("DchDias");
             boton.Visibility = Visibility.Visible;
             boton.IsEnabled = true;
 
-            boton = (Button)this.FindName("DchDias");
-            boton.Visibility = Visibility.Hidden;
-            boton.IsEnabled = false;
-
             boton = (Button)this.FindName("IzqDias");
-            boton.Visibility = Visibility.Hidden;
-            boton.IsEnabled = false;
+            boton.Visibility = Visibility.Visible;
+            boton.IsEnabled = true;
 
             //moverGraficoComidas(true);
         }
@@ -706,7 +710,6 @@ namespace Dieta
         {
             BinarySerialization.WriteToBinaryFile(s, new List<Fecha>(listaDate));
         }
-
         private void BotonIzqComidas_Click(object sender, RoutedEventArgs e)
         {
             moverGraficoComidas(false);

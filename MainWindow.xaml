@@ -39,10 +39,10 @@
         </Menu>
 
         <Button Content="Ver Gráfica Día" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Click="VerTodo_Click" Grid.Column="1" Grid.ColumnSpan="2" Margin="335,5,342,6" Width="90"/>
-        <Button x:Name="DchComidas" IsEnabled="False" Visibility="Visible" Content="Dch" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Click="BotonDchComidas_Click"  Grid.Column="2" Margin="0,5,6,6" Height="20" Width="50"/>
-        <Button x:Name="DchDias" IsEnabled="True" Visibility="Visible" Content="Dch" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Click="BotonDchDias_Click"  Grid.Column="2" Margin="0,5,6,6" Height="20" Width="50"/>
-        <Button x:Name="IzqComidas" IsEnabled="False" Visibility="Visible" Content="Izq" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Click="BotonIzqComidas_Click" Grid.Column="2" Margin="0,5,63,6" Height="20" Width="50"/>
-        <Button x:Name="IzqDias" IsEnabled="True" Visibility="Visible" Content="Izq" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Click="BotonIzqDias_Click" Grid.Column="2" Margin="0,5,63,6" Height="20" Width="50"/>
+        <Button x:Name="DchDias" IsEnabled="False" Visibility="Visible" Content="Dch" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Click="BotonDchDias_Click"  Grid.Column="2" Margin="0,5,6,6" Height="20" Width="50"/>
+        <Button x:Name="DchComidas" IsEnabled="True" Visibility="Visible" Content="Dch" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Click="BotonDchComidas_Click"  Grid.Column="2" Margin="0,5,6,6" Height="20" Width="50"/>
+        <Button x:Name="IzqDias" IsEnabled="False" Visibility="Visible" Content="Izq" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Click="BotonIzqDias_Click" Grid.Column="2" Margin="0,5,63,6" Height="20" Width="50"/>
+        <Button x:Name="IzqComidas" IsEnabled="True" Visibility="Visible" Content="Izq" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Click="BotonIzqComidas_Click" Grid.Column="2" Margin="0,5,63,6" Height="20" Width="50"/>
 
         <Viewbox x:Name="ViewBox" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Margin="0,0,0,-19" IsHitTestVisible="False" >
             <Grid>
