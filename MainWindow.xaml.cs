@@ -32,12 +32,9 @@ namespace Dieta
         ObservableCollection<Fecha> listaDate;
         string directorioTmp, archivoTmp, archivoActual;
         int pos, posComidas;
-        public MainWindow()     // Añadir ventana que confirme que se ha cargado el último archivo temporal
+        public MainWindow()
         {
             InitializeComponent();
-
-            //listaDate = new ObservableCollection<Fecha>();
-            //listaFecha.ItemsSource = listaDate;
 
             directorioTmp = Directory.GetCurrentDirectory() + "\\saves";
 
@@ -49,7 +46,7 @@ namespace Dieta
             archivoTmp = directorioTmp + "\\tmpData.bin";
             archivoActual = "0";
 
-            if (File.Exists(archivoActual))
+            if (File.Exists(archivoTmp))
             {
                 CargarArchivoTmp(archivoTmp);
                 MostrarCuadro("Se ha cargado el archivo de autoguardado de la última sesión", "Autoguardado");
@@ -58,6 +55,8 @@ namespace Dieta
             {
                 listaDate = new ObservableCollection<Fecha>();
             }
+
+            limpiarGrafico();
         }
 
         private void VerTablas_Click(object sender, RoutedEventArgs e)
@@ -542,26 +541,102 @@ namespace Dieta
             }
             canvas.Visibility = Visibility.Visible;
         }
+        private void NuevaTabla_Click(object sender, RoutedEventArgs e)       // Añadir opcion cuando no se selecciona ninguna tabla
+        {
+            MessageBoxResult resultado;
+            MessageBoxButton botones = MessageBoxButton.OKCancel;
+            MessageBoxImage icono = MessageBoxImage.Question;
+            
+            resultado = MessageBox.Show("Si crea una nueva tabla perderá los datos de la tabla actual que no se hayan guardado\n" +
+                "¿Desea crear una nueva tabla?", "Aviso nueva tabla", botones, icono);
+
+            switch (resultado)
+            {
+                case MessageBoxResult.OK:
+                    foreach (Window window in Application.Current.Windows)
+                    {
+                        if (window.Title.Equals("Tablas"))
+                        {
+                            window.Close();
+                            limpiarGrafico();
+                        }
+                    }
+
+                    listaDate = new ObservableCollection<Fecha>();
+                    archivoActual = "0";
+                    break;
+
+                case MessageBoxResult.Cancel: return;
+            }
+        }
+
+        private void limpiarGrafico()
+        {
+            eliminarLineas();
+
+            for(int i = 0; i<17; i++)
+            {
+                var d = string.Format("Dia{0}", i + 1);
+                var dia = (Label)this.FindName(d);
+                dia.Visibility = Visibility.Hidden;
+
+                var lD = string.Format("lineDia{0}", i + 1);
+                var lineDia = (Line)this.FindName(lD);
+                lineDia.Visibility = Visibility.Hidden;
+
+                if (i<8)
+                {
+                    var l = string.Format("line{0}", i + 1);
+                    var line = (Line)this.FindName(l);
+
+                    var nC = string.Format("NombreComida{0}", i + 1);
+                    var nombreComida = (Label)this.FindName(nC);
+
+                    nombreComida.Visibility = Visibility.Hidden;
+                    line.Visibility = Visibility.Hidden;
+                }
+            }
+        }
 
         private void CargarTablas_Click(object sender, RoutedEventArgs e)       // Añadir opcion cuando no se selecciona ninguna tabla
         {
-            OpenFileDialog dialog = new OpenFileDialog();
-            //FileDialog dialog = new FileDialog();
-            dialog.Filter = "cal files (*.cal)|*.cal|All files (*.*)|*.*";
-            dialog.FilterIndex = 2;
-            dialog.RestoreDirectory = true;
+            MessageBoxResult resultado;
+            MessageBoxButton botones = MessageBoxButton.OKCancel;
+            MessageBoxImage icono = MessageBoxImage.Question;
 
-            if ((bool)dialog.ShowDialog())
-            {
-                archivoActual = dialog.FileName.ToString();
-                CargarArchivoTmp(archivoActual);
-                //GuardarArchivo(archivoActual);
-                MostrarCuadro("Se ha cargado el archivo correctamente.", "Carga exitosa");
-            }
-            else
-            {
-                MostrarCuadro("No se ha podido cargar el archivo con el nombre especificado.", "Error al seleccionar archivo a cargar");
+            resultado = MessageBox.Show("Si carga una nueva tabla perderá los datos de la tabla actual que no se hayan guardado\n" +
+                "¿Desea cargar una nueva tabla?", "Aviso cargar tabla", botones, icono);
 
+            switch (resultado)
+            {
+                case MessageBoxResult.OK:
+                    OpenFileDialog dialog = new OpenFileDialog();
+                    dialog.Filter = "cal files (*.cal)|*.cal|All files (*.*)|*.*";
+                    dialog.FilterIndex = 1;
+                    dialog.RestoreDirectory = true;
+
+                    if ((bool)dialog.ShowDialog())
+                    {
+                        foreach (Window window in Application.Current.Windows)
+                        {
+                            if (window.Title.Equals("Tablas"))
+                            {
+                                window.Close();
+                                limpiarGrafico();
+                            }
+                        }
+                        archivoActual = dialog.FileName.ToString();
+                        CargarArchivoTmp(archivoActual);
+                        MostrarCuadro("Se ha cargado el archivo correctamente.", "Carga exitosa");
+                    }
+                    else
+                    {
+                        MostrarCuadro("No se ha podido cargar el archivo con el nombre especificado.", "Error al seleccionar archivo a cargar");
+                    }
+
+                    break;
+
+                case MessageBoxResult.Cancel: return;
             }
         }
 

@@ -29,6 +29,7 @@
             </Menu.ItemsPanel>
 
             <MenuItem Header="Tablas">
+                <MenuItem Header="Nueva Tabla" Click="NuevaTabla_Click"/>
                 <MenuItem Header="Ver Tablas" Click="VerTablas_Click"/>
                 <MenuItem Header="Guardar Tablas" Click="GuardarTablas_Click"/>
                 <MenuItem Header="Guardar Tablas Como..." Click="GuardarTablasComo_Click"/>
