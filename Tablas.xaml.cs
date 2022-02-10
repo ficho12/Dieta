@@ -55,12 +55,11 @@ namespace Dieta
 
     public partial class Tablas : Window
     {
-        
         ObservableCollection<Fecha> listaDate;
         ObservableCollection<Comida> listaDay;
         public event TablaEventHandler pasarTabla;
 
-        String archivoTmp, directorioTmp;
+        string archivoTmp, directorioTmp;
 
         public Tablas(ObservableCollection<Fecha> l)
         {
@@ -77,13 +76,22 @@ namespace Dieta
            
             listaDate = l;
             listaFecha.ItemsSource = listaDate;
+            blackout();
         }
+
+        private void blackout()
+        {
+            foreach (Fecha fecha in listaDate)
+            {
+                dp.BlackoutDates.Add(new CalendarDateRange (fecha.fecha));
+            }
+        }
+
         private void AnadirFecha_Click(object sender, RoutedEventArgs e)
         {
-            if(dp.SelectedDate.HasValue)
+            if (dp.SelectedDate.HasValue)
             {
                 Fecha fecha = new Fecha((DateTime)dp.SelectedDate);
-
                 if (listaDate.Any(f => f.fecha == fecha.fecha)) //Ya existe la fecha, no se añade
                 {
                     MessageBoxButton boton = MessageBoxButton.OK;
@@ -104,7 +112,6 @@ namespace Dieta
                 MessageBoxButton boton = MessageBoxButton.OK;
                 MessageBox.Show("Seleccione un día del calendario para añadirlo a la lista", "Error al añadir día", boton);
             }
-            
         }
 
         private void listaFecha_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -160,6 +167,7 @@ namespace Dieta
 
         private void EliminarFecha_Click(object sender, RoutedEventArgs e)
         {
+            Fecha fecha = (Fecha)(listaFecha.SelectedItem);
             listaDate.Remove((Fecha)(listaFecha.SelectedItem));
             GuardarArchivoTmp();
             listaFecha.ItemsSource = listaDate;
