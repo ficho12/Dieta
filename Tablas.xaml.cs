@@ -39,33 +39,18 @@ namespace Dieta
 
     public delegate void TablaEventHandler(Object sender, TablaEventArgs e );
 
-    [Serializable]
-    public class CambiarGraficaEventArgs : EventArgs
-    {
-        public bool cambioGrafica { get; set; }         //True = grafica Dias, False = Gráfica Comida
-
-        public CambiarGraficaEventArgs(bool c)
-        {
-            cambioGrafica = c;
-        }
-    }
-
-    public delegate void CambiarGraficaEventHandler(Object sender, CambiarGraficaEventArgs e);
-
-
     public partial class Tablas : Window
     {
         ObservableCollection<Fecha> listaDate;
         ObservableCollection<Comida> listaDay;
         public event TablaEventHandler pasarTabla;
-
-        string archivoTmp, directorioTmp;
+        string archivoTmp;
 
         public Tablas(ObservableCollection<Fecha> l)
         {
             InitializeComponent();
 
-            directorioTmp = Directory.GetCurrentDirectory() + "\\saves";
+            string directorioTmp = Directory.GetCurrentDirectory() + "\\saves";
 
             if (!Directory.Exists(directorioTmp))
             {
@@ -125,7 +110,7 @@ namespace Dieta
 
                 if (pasarTabla != null)
                 {
-                    pasarTabla(this, new TablaEventArgs(listaDate, listaDate.IndexOf(fecha)));      //Problema Pos
+                    pasarTabla(this, new TablaEventArgs(listaDate, listaDate.IndexOf(fecha)));
                 }
             }
         }
@@ -144,17 +129,14 @@ namespace Dieta
                     fecha.totalCalorias += comida.calorias;
                     listaDay.Add(comida);
                     listaDate.Add(fecha);
-                    //listaDia.ItemsSource = fecha.Comidas;
 
                     if (pasarTabla != null)
                     {
                         pasarTabla(this, new TablaEventArgs(listaDate, listaDate.IndexOf(fecha)));
                     }
-
                 }
 
-                listaFecha.SelectedItem = fecha;                                       // Arreglo de lo de arriba, hacer con el boton de añadir también
-
+                listaFecha.SelectedItem = fecha;                                     
                 GuardarArchivoTmp();
             }
             else
@@ -173,7 +155,7 @@ namespace Dieta
             listaFecha.ItemsSource = listaDate;
         }
 
-        private void EliminarComida_Click(object sender, RoutedEventArgs e)         //No deja eliminar Dos a la vez (Usar variable para last fecha selection?)
+        private void EliminarComida_Click(object sender, RoutedEventArgs e)         
         {
             Fecha fecha = (Fecha)(listaFecha.SelectedItem);
             Comida comida = (Comida)(listaDia.SelectedItem);
@@ -187,7 +169,7 @@ namespace Dieta
                 GuardarArchivoTmp();
             }
 
-            listaFecha.SelectedItem = fecha;                                       // Arreglo de lo de arriba, hacer con el boton de añadir también
+            listaFecha.SelectedItem = fecha;                                       
         }
 
         private void GuardarArchivoTmp()

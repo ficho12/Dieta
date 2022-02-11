@@ -27,15 +27,14 @@ namespace Dieta
 
     public partial class MainWindow : Window
     {
-        Tablas tb;
         ObservableCollection<Fecha> listaDate;
-        string directorioTmp, archivoTmp, archivoActual;
+        string archivoTmp, archivoActual;
         int pos, posComidas;
         public MainWindow()
         {
             InitializeComponent();
 
-            directorioTmp = Directory.GetCurrentDirectory() + "\\saves";
+            string directorioTmp = Directory.GetCurrentDirectory() + "\\saves";
 
             if (!Directory.Exists(directorioTmp))
             {
@@ -60,7 +59,7 @@ namespace Dieta
 
         private void VerTablas_Click(object sender, RoutedEventArgs e)
         {
-            tb = new Tablas(listaDate);
+            Tablas tb = new Tablas(listaDate);
             tb.Owner = this;
             tb.Show();
             tb.pasarTabla += pasarTabla;
@@ -146,7 +145,6 @@ namespace Dieta
                     line.Visibility = Visibility.Visible;
 
                     Debug.WriteLine(i + " lineWidth: " + line.Width.ToString());
-
                 }
 
                 var numC = string.Format("NumCal{0}", 8 - i);
@@ -157,7 +155,6 @@ namespace Dieta
 
                 numCal.Content = resto;
                 resto -= division;
-
             }
 
             calorias = new double[18];
@@ -590,7 +587,6 @@ namespace Dieta
                 case MessageBoxResult.Cancel: return;
             }
         }
-
         private void GuardarTablas_Click(object sender, RoutedEventArgs e)
         {
             if (archivoActual.Equals("0"))
@@ -714,7 +710,7 @@ namespace Dieta
         /// <summary>
         /// Clones an element.
         /// </summary>
-        public static T ElementClone<T>(T element)
+        private static T ElementClone<T>(T element)
         {
             T clone = default(T);
             MemoryStream memStream = ElementToStream(element);
@@ -725,7 +721,7 @@ namespace Dieta
         /// <summary>
         /// Saves an element as MemoryStream.
         /// </summary>
-        public static MemoryStream ElementToStream(object element)
+        private static MemoryStream ElementToStream(object element)
         {
             MemoryStream memStream = new MemoryStream();
             XamlWriter.Save(element, memStream);
@@ -735,7 +731,7 @@ namespace Dieta
         /// <summary>
         /// Rebuilds an element from a MemoryStream.
         /// </summary>
-        public static T ElementFromStream<T>(MemoryStream elementAsStream)
+        private static T ElementFromStream<T>(MemoryStream elementAsStream)
         {
             object reconstructedElement = null;
 
